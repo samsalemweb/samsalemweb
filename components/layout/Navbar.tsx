@@ -8,8 +8,6 @@ import MobileMenu from './MobileMenu';
 
 const navLinks = [
     { label: 'Home', href: '/' },
-    { label: 'Sold', href: '/buy/sold' },
-    { label: 'About', href: '/about' },
     {
         label: 'Listings',
         href: '/buy/samslisting',
@@ -18,6 +16,18 @@ const navLinks = [
             { label: 'Presale Properties', href: '/presale' },
             { label: 'Office Listing', href: '/listing/office-listing' },
             { label: 'Assignment', href: '/listing/assignment' },
+        ],
+    },
+    { label: 'Sold', href: '/buy/sold' },
+    { label: 'About', href: '/about' },
+    {
+        label: 'Tools',
+        href: '/tools',
+        children: [
+            { label: 'Payment Calculator', href: '/tools/payment-calculator' },
+            { label: 'Refinance Calculator', href: '/tools/refinance-calculator' },
+            { label: 'Land Transfer Tax', href: '/tools/land-transfer-tax' },
+            { label: 'Affordability Calculator', href: '/tools/affordability-calculator' },
         ],
     },
     {
@@ -42,16 +52,6 @@ const navLinks = [
         children: [
             { label: 'Market Trends', href: '/news/market-trends' },
             { label: 'Articles', href: '/news/articles' },
-        ],
-    },
-    {
-        label: 'Tools',
-        href: '/tools',
-        children: [
-            { label: 'Payment Calculator', href: '/tools/payment-calculator' },
-            { label: 'Refinance Calculator', href: '/tools/refinance-calculator' },
-            { label: 'Land Transfer Tax', href: '/tools/land-transfer-tax' },
-            { label: 'Affordability Calculator', href: '/tools/affordability-calculator' },
         ],
     },
 ];
