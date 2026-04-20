@@ -4,11 +4,17 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 const soldProperties = [
+    { src: '/sold13.png', label: 'Sold' },
+    { src: '/sold14.png', label: 'Sold' },
+    { src: '/sold15.png', label: 'Sold' },
+    { src: '/sold16.png', label: 'Sold' },
+    { src: '/sold17.png', label: 'Sold' },
     { src: '/sold12.jpg', label: 'Sold' },
     { src: '/sold8.jpg', label: 'Sold' },
     { src: '/sold9.jpg', label: 'Sold' },
     { src: '/sold10.jpg', label: 'Sold' },
     { src: '/sold11.jpg', label: 'Sold' },
+
 ];
 
 export default function SoldPage() {
