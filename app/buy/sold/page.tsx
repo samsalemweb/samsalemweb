@@ -4,17 +4,26 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 const soldProperties = [
-    { src: '/sold13.png', label: 'Sold' },
-    { src: '/sold14.png', label: 'Sold' },
-    { src: '/sold15.png', label: 'Sold' },
-    { src: '/sold16.png', label: 'Sold' },
-    { src: '/sold17.png', label: 'Sold' },
-    { src: '/sold12.jpg', label: 'Sold' },
-    { src: '/sold8.jpg', label: 'Sold' },
-    { src: '/sold9.jpg', label: 'Sold' },
-    { src: '/sold10.jpg', label: 'Sold' },
-    { src: '/sold11.jpg', label: 'Sold' },
-
+    { src: '/sold (1).jpg', label: 'Sold' },
+    { src: '/sold (1).png', label: 'Sold' },
+    { src: '/sold (2).jpg', label: 'Sold' },
+    { src: '/sold (2).png', label: 'Sold' },
+    { src: '/sold (3).jpg', label: 'Sold' },
+    { src: '/sold (3).png', label: 'Sold' },
+    { src: '/sold (4).jpg', label: 'Sold' },
+    { src: '/sold (4).png', label: 'Sold' },
+    { src: '/sold (5).jpg', label: 'Sold' },
+    { src: '/sold (5).png', label: 'Sold' },
+    { src: '/sold (6).png', label: 'Sold' },
+    { src: '/sold (7).png', label: 'Sold' },
+    { src: '/sold (8).png', label: 'Sold' },
+    { src: '/sold (9).png', label: 'Sold' },
+    { src: '/sold (10).png', label: 'Sold' },
+    { src: '/sold (11).png', label: 'Sold' },
+    { src: '/sold (12).png', label: 'Sold' },
+    { src: '/sold (13).png', label: 'Sold' },
+    { src: '/sold (14).png', label: 'Sold' },
+    { src: '/sold (15).png', label: 'Sold' },
 ];
 
 export default function SoldPage() {
@@ -39,32 +48,31 @@ export default function SoldPage() {
                 <p className="text-muted font-body text-sm mb-6">
                     {soldProperties.length} properties sold
                 </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {soldProperties.map((item, idx) => (
-                        <motion.div
-                            key={idx}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: '-30px' }}
-                            transition={{ duration: 0.5, delay: idx * 0.1 }}
-                            className="relative h-[300px] md:h-[340px] rounded-2xl overflow-hidden group"
-                        >
-                            <Image
-                                src={item.src}
-                                alt={`Sold Property ${idx + 1}`}
-                                fill
-                                className="object-cover transition-transform duration-700 group-hover:scale-110"
-                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                            <div className="absolute bottom-4 left-4">
-                                <span className="px-3 py-1 bg-accent/90 backdrop-blur-sm rounded-full text-xs font-bold text-white">
-                                    {item.label}
-                                </span>
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
+                <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
+                            {soldProperties.map((item, idx) => (
+                                <motion.div
+                                    key={idx}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, margin: '-30px' }}
+                                    transition={{ duration: 0.5, delay: Math.min(idx * 0.08, 0.4) }}
+                                    className="relative break-inside-avoid rounded-2xl overflow-hidden group"
+                                >
+                                    <img
+                                        src={item.src}
+                                        alt={`Sold Property ${idx + 1}`}
+                                        className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105 block"
+                                        loading={idx < 6 ? 'eager' : 'lazy'}
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                                    <div className="absolute bottom-4 left-4">
+                                        <span className="px-3 py-1 bg-accent/90 backdrop-blur-sm rounded-full text-xs font-bold text-white">
+                                            Sold
+                                        </span>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
             </div>
         </div>
     );
