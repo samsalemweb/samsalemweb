@@ -26,7 +26,7 @@ const navLinks = [
         children: [
             { label: 'Payment Calculator', href: '/tools/payment-calculator' },
             { label: 'Refinance Calculator', href: '/tools/refinance-calculator' },
-            { label: 'Land Transfer Tax', href: '/tools/land-transfer-tax' },
+            { label: 'Property Transfer Tax', href: '/tools/property-transfer-tax' },
             { label: 'Affordability Calculator', href: '/tools/affordability-calculator' },
         ],
     },

@@ -32,7 +32,7 @@ export default function Testimonials() {
                     </ScrollReveal>
                     <WordReveal
                         text="Stories from people who found their place with us"
-                        className="text-3xl md:text-4xl font-cinzel font-bold leading-tight tracking-tight max-w-2xl"
+                        className="text-3xl md:text-4xl font-cinzel font-semibold leading-tight tracking-tight max-w-2xl"
                         delay={0.2}
                     />
                 </div>

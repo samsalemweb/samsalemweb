@@ -125,7 +125,7 @@ export default function AffordabilityCalculatorPage() {
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M11 17l-5-5m0 0l5-5m-5 5h12" /></svg>
             All Calculators
           </Link>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white" style={{ fontFamily: "'Cinzel', serif" }}>Affordability Calculator</h1>
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white font-heading">Affordability Calculator</h1>
           <p className="text-white/50 mt-2 text-sm" style={{ fontFamily: "'DM Sans', sans-serif" }}>Find your maximum home price based on Canadian OSFI B-20 lending rules.</p>
         </div>
       </div>
@@ -195,18 +195,18 @@ export default function AffordabilityCalculatorPage() {
             {/* Max Home Price */}
             <div className="rounded-2xl p-8 text-center" style={{ background: '#141414', border: '1px solid rgba(201,168,76,0.4)', boxShadow: '0 0 30px rgba(201,168,76,0.06)' }}>
               <p className="text-white/50 text-sm mb-2" style={{ fontFamily: "'DM Sans', sans-serif" }}>Maximum Home Price</p>
-              <p className="text-5xl md:text-6xl font-bold mb-1" style={{ color: '#C9A84C', fontFamily: "'Cinzel', serif" }}>{fmt(animatedPrice)}</p>
+              <p className="text-5xl md:text-6xl font-semibold mb-1 font-heading" style={{ color: '#C9A84C' }}>{fmt(animatedPrice)}</p>
             </div>
 
             {/* Stat Cards */}
             <div className="grid grid-cols-2 gap-4">
               <div className="rounded-xl p-5 text-center" style={{ background: '#141414', border: '1px solid rgba(255,255,255,0.06)' }}>
                 <p className="text-white/40 text-xs mb-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>Max Mortgage</p>
-                <p className="text-lg font-bold text-white" style={{ fontFamily: "'Cinzel', serif" }}>{fmt(animatedMortgage)}</p>
+                <p className="text-lg font-semibold text-white font-heading">{fmt(animatedMortgage)}</p>
               </div>
               <div className="rounded-xl p-5 text-center" style={{ background: '#141414', border: '1px solid rgba(255,255,255,0.06)' }}>
                 <p className="text-white/40 text-xs mb-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>Est. Monthly Payment</p>
-                <p className="text-lg font-bold text-white" style={{ fontFamily: "'Cinzel', serif" }}>{fmt(animatedPayment)}</p>
+                <p className="text-lg font-semibold text-white font-heading">{fmt(animatedPayment)}</p>
                 <p className="text-white/30 text-[10px] mt-0.5" style={{ fontFamily: "'DM Sans', sans-serif" }}>at contract rate</p>
               </div>
             </div>

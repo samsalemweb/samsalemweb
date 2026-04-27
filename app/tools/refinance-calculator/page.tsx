@@ -94,7 +94,7 @@ export default function RefinanceCalculatorPage() {
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M11 17l-5-5m0 0l5-5m-5 5h12" /></svg>
             All Calculators
           </Link>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white" style={{ fontFamily: "'Cinzel', serif" }}>Refinance Calculator</h1>
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white font-heading">Refinance Calculator</h1>
           <p className="text-white/50 mt-2 text-sm" style={{ fontFamily: "'DM Sans', sans-serif" }}>Compare your current mortgage against potential new terms.</p>
         </div>
       </div>
@@ -129,14 +129,14 @@ export default function RefinanceCalculatorPage() {
             {/* New Monthly Payment */}
             <div className="rounded-2xl p-8 text-center" style={{ background: '#141414', border: '1px solid rgba(201,168,76,0.4)', boxShadow: '0 0 30px rgba(201,168,76,0.06)' }}>
               <p className="text-white/50 text-sm mb-2" style={{ fontFamily: "'DM Sans', sans-serif" }}>New Monthly Payment</p>
-              <p className="text-5xl md:text-6xl font-bold mb-1" style={{ color: '#C9A84C', fontFamily: "'Cinzel', serif" }}>{fmt(animatedNew)}</p>
+              <p className="text-5xl md:text-6xl font-semibold mb-1 font-heading" style={{ color: '#C9A84C' }}>{fmt(animatedNew)}</p>
               <p className="text-white/40 text-sm" style={{ fontFamily: "'DM Sans', sans-serif" }}>/month</p>
             </div>
 
             {/* Monthly Savings */}
             <div className="rounded-xl p-6 text-center" style={{ background: '#141414', border: '1px solid rgba(255,255,255,0.06)' }}>
               <p className="text-white/40 text-xs mb-2" style={{ fontFamily: "'DM Sans', sans-serif" }}>Monthly Savings</p>
-              <p className="text-2xl font-bold" style={{ color: monthlySavings >= 0 ? '#4ade80' : '#f87171', fontFamily: "'Cinzel', serif" }}>
+              <p className="text-2xl font-semibold font-heading" style={{ color: monthlySavings >= 0 ? '#4ade80' : '#f87171' }}>
                 {monthlySavings >= 0 ? '+' : '-'}{fmt(animatedSavings)}
               </p>
             </div>
@@ -144,7 +144,7 @@ export default function RefinanceCalculatorPage() {
             {/* Break-Even */}
             <div className="rounded-xl p-6 text-center" style={{ background: '#141414', border: '1px solid rgba(255,255,255,0.06)' }}>
               <p className="text-white/40 text-xs mb-2" style={{ fontFamily: "'DM Sans', sans-serif" }}>Break-Even Period</p>
-              <p className="text-2xl font-bold text-white" style={{ fontFamily: "'Cinzel', serif" }}>
+              <p className="text-2xl font-semibold text-white font-heading">
                 {monthlySavings <= 0
                   ? 'N/A'
                   : breakEvenMonths < 12
@@ -183,7 +183,7 @@ export default function RefinanceCalculatorPage() {
 
               <div className="mt-5 pt-4 text-center" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
                 <p className="text-white/40 text-xs mb-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>Lifetime Savings (after penalty)</p>
-                <p className="text-xl font-bold" style={{ color: lifetimeSavings >= 0 ? '#4ade80' : '#f87171', fontFamily: "'Cinzel', serif" }}>
+                <p className="text-xl font-semibold font-heading" style={{ color: lifetimeSavings >= 0 ? '#4ade80' : '#f87171' }}>
                   {lifetimeSavings >= 0 ? '+' : ''}{fmt(lifetimeSavings)}
                 </p>
               </div>

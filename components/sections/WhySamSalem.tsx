@@ -45,7 +45,7 @@ export default function WhySamSalem() {
                     </ScrollReveal>
                     <WordReveal
                         text="Service, support, and strategy — made simple from start to finish."
-                        className="text-3xl md:text-4xl font-cinzel font-bold leading-tight tracking-tight max-w-3xl mx-auto"
+                        className="text-3xl md:text-4xl font-cinzel font-semibold leading-tight tracking-tight max-w-3xl mx-auto"
                         delay={0.2}
                     />
                 </div>

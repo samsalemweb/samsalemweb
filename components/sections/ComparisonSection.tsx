@@ -51,7 +51,7 @@ export default function ComparisonSection() {
                             </span>
                             <WordReveal
                                 text="A commitment to excellence in every detail."
-                                className="text-2xl md:text-4xl lg:text-[2.75rem] font-cinzel font-bold leading-tight tracking-tight text-white"
+                                className="text-2xl md:text-4xl lg:text-[2.75rem] font-cinzel font-semibold leading-tight tracking-tight text-white"
                                 delay={0.2}
                             />
                         </div>

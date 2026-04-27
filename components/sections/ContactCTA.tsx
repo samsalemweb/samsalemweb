@@ -50,7 +50,7 @@ export default function ContactCTA() {
                     </ScrollReveal>
                     <WordReveal
                         text="Everything you wanted to ask (but didn't know who to)"
-                        className="text-3xl md:text-4xl font-cinzel font-bold leading-tight tracking-tight max-w-2xl"
+                        className="text-3xl md:text-4xl font-cinzel font-semibold leading-tight tracking-tight max-w-2xl"
                         delay={0.2}
                     />
                 </div>

@@ -18,7 +18,7 @@ export default function SellPage() {
                     <p className="text-accent font-body font-semibold text-sm tracking-[0.15em] uppercase mb-3">
                         Sell with Sam Salem
                     </p>
-                    <h1 className="text-3xl md:text-5xl font-heading font-bold text-white mb-4">
+                    <h1 className="text-3xl md:text-5xl font-heading font-semibold text-white mb-4">
                         Sell your home for top dollar
                     </h1>
                     <p className="text-white/70 font-body text-lg max-w-2xl mx-auto">
@@ -50,7 +50,7 @@ export default function SellPage() {
             {/* CTA Section */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
                 <div className="bg-primary rounded-3xl p-8 md:p-12 text-center">
-                    <h2 className="text-2xl md:text-3xl font-heading font-bold text-white mb-4">
+                    <h2 className="text-2xl md:text-3xl font-heading font-semibold text-white mb-4">
                         Ready to list your property?
                     </h2>
                     <p className="text-white/70 font-body text-base mb-8 max-w-xl mx-auto">

@@ -69,7 +69,7 @@ export default function HeroSection() {
                             height={100}
                             className="w-[80px] lg:w-[100px] h-auto drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]"
                         />
-                        <span className="font-cinzel text-xs font-bold tracking-widest" style={{ color: '#C9A84C', textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>GVR 2023</span>
+                        <span className="font-cinzel text-xs font-semibold tracking-widest" style={{ color: '#C9A84C', textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>GVR 2023</span>
                     </div>
                     <Image
                         src="/top1.jpeg"
@@ -83,7 +83,7 @@ export default function HeroSection() {
                 {/* Text — centered over full width */}
                 <div className="relative z-10 w-full min-h-screen flex flex-col items-center justify-center text-center px-6 py-20">
                     <motion.h1
-                        className="text-6xl lg:text-7xl xl:text-8xl font-cinzel font-bold text-white tracking-widest mb-4"
+                        className="text-6xl lg:text-7xl xl:text-8xl font-cinzel text-white tracking-widest mb-4"
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
@@ -104,7 +104,7 @@ export default function HeroSection() {
                     </ScrollReveal>
 
                     <ScrollReveal direction="up" delay={1.1} blur>
-                        <p className="font-cinzel text-3xl lg:text-4xl xl:text-5xl font-bold tracking-widest mb-2"
+                        <p className="font-cinzel text-3xl lg:text-4xl xl:text-5xl tracking-widest mb-2"
                             style={{ color: '#C9A84C', textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
                             Top 1% of all Realtors<sup className="text-[10px] align-super">&reg;</sup>
                         </p>
@@ -151,7 +151,7 @@ export default function HeroSection() {
                 <div className="absolute top-20 left-0 right-0 z-20 flex flex-col items-center text-center px-6 gap-3">
 
                     <motion.h1
-                        className="text-4xl sm:text-5xl font-cinzel font-bold text-white tracking-widest"
+                        className="text-4xl sm:text-5xl font-cinzel text-white tracking-widest"
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
@@ -172,7 +172,7 @@ export default function HeroSection() {
                     </ScrollReveal>
 
                     <ScrollReveal direction="up" delay={1.0} blur>
-                        <p className="font-cinzel text-xl sm:text-2xl font-bold tracking-widest"
+                        <p className="font-cinzel text-xl sm:text-2xl tracking-widest"
                             style={{ color: '#C9A84C', textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
                             Top 1% of all Realtors<sup className="text-[7px] align-super">&reg;</sup>
                         </p>
@@ -274,7 +274,7 @@ export default function HeroSection() {
                             height={50}
                             className="w-[45px] h-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
                         />
-                        <span className="font-cinzel text-[9px] font-bold tracking-widest" style={{ color: '#C9A84C', textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>GVR 2023</span>
+                        <span className="font-cinzel text-[9px] font-semibold tracking-widest" style={{ color: '#C9A84C', textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>GVR 2023</span>
                     </div>
                     <Image
                         src="/top1.jpeg"

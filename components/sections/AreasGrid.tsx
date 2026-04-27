@@ -23,7 +23,7 @@ export default function AreasGrid() {
                     </ScrollReveal>
                     <WordReveal
                         text="Where you live matters — pick the perfect spot"
-                        className="text-3xl md:text-4xl font-cinzel font-bold leading-tight tracking-tight max-w-2xl"
+                        className="text-3xl md:text-4xl font-cinzel font-semibold leading-tight tracking-tight max-w-2xl"
                         delay={0.2}
                     />
                 </div>

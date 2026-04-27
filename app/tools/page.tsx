@@ -20,10 +20,10 @@ const calculators = [
   },
   {
     icon: '📋',
-    title: 'Land Transfer Tax',
+    title: 'Property Transfer Tax',
     description: 'Calculate BC Property Transfer Tax and first-time buyer rebates.',
     keywords: 'BC PTT · FTHB Rebate · Brackets',
-    href: '/tools/land-transfer-tax',
+    href: '/tools/property-transfer-tax',
   },
   {
     icon: '💰',
@@ -47,10 +47,7 @@ export default function ToolsHubPage() {
         >
           Financial Tools
         </p>
-        <h1
-          className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4"
-          style={{ fontFamily: "'Cinzel', serif" }}
-        >
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white mb-4 font-heading">
           Mortgage Calculators
         </h1>
         <p
@@ -83,10 +80,7 @@ export default function ToolsHubPage() {
               <div className="text-4xl mb-5">{calc.icon}</div>
 
               {/* Title */}
-              <h2
-                className="text-xl font-semibold text-white mb-2"
-                style={{ fontFamily: "'Cinzel', serif" }}
-              >
+              <h2 className="text-xl font-semibold text-white mb-2 font-heading">
                 {calc.title}
               </h2>
 

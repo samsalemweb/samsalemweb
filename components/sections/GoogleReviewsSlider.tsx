@@ -67,7 +67,7 @@ function ReviewCard({ review }: { review: (typeof reviews)[0] }) {
             className="flex-shrink-0 w-[340px] md:w-[400px] bg-white rounded-2xl border border-[#C9A84C]/15 p-6 hover:border-[#C9A84C]/40 transition-all duration-300 hover:shadow-lg hover:shadow-[#C9A84C]/5 group cursor-pointer"
         >
             <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#C9A84C] to-[#B89A3E] flex items-center justify-center text-white font-cinzel font-bold text-sm">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#C9A84C] to-[#B89A3E] flex items-center justify-center text-white font-cinzel font-semibold text-sm">
                     {review.name.charAt(0)}
                 </div>
                 <div>
@@ -128,7 +128,7 @@ export default function GoogleReviewsSlider() {
                     <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-4">
                         <div>
                             <span className="section-label mb-4">Google Reviews</span>
-                            <h2 className="text-3xl md:text-4xl font-cinzel font-bold leading-tight tracking-tight mt-4">
+                            <h2 className="text-3xl md:text-4xl font-cinzel font-semibold leading-tight tracking-tight mt-4">
                                 What Our Clients Say
                             </h2>
                         </div>

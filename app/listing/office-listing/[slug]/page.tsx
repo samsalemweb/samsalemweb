@@ -100,9 +100,9 @@ export default async function OfficeListingDetailPage({ params }: { params: { sl
                         <div className="bg-white rounded-2xl border border-border p-6 shadow-sm">
                             <p className="text-xs font-semibold tracking-widest uppercase text-muted mb-2">Price</p>
                             {isEmptyPrice ? (
-                                <p className="text-2xl font-heading font-bold text-accent italic">Pricing Coming Soon</p>
+                                <p className="text-2xl font-heading font-semibold text-accent italic">Pricing Coming Soon</p>
                             ) : (
-                                <p className="text-2xl font-heading font-bold text-foreground">{listing.price}</p>
+                                <p className="text-2xl font-heading font-semibold text-foreground">{listing.price}</p>
                             )}
                         </div>
 

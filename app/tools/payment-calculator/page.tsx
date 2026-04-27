@@ -111,7 +111,7 @@ export default function PaymentCalculatorPage() {
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M11 17l-5-5m0 0l5-5m-5 5h12" /></svg>
             All Calculators
           </Link>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white" style={{ fontFamily: "'Cinzel', serif" }}>
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white font-heading">
             Payment Calculator
           </h1>
           <p className="text-white/50 mt-2 text-sm" style={{ fontFamily: "'DM Sans', sans-serif" }}>
@@ -211,7 +211,7 @@ export default function PaymentCalculatorPage() {
             {/* Main Result */}
             <div className="rounded-2xl p-8 text-center" style={{ background: '#141414', border: '1px solid rgba(201,168,76,0.4)', boxShadow: '0 0 30px rgba(201,168,76,0.06)' }}>
               <p className="text-white/50 text-sm mb-2" style={{ fontFamily: "'DM Sans', sans-serif" }}>Estimated Payment</p>
-              <p className="text-5xl md:text-6xl font-bold mb-1" style={{ color: '#C9A84C', fontFamily: "'Cinzel', serif" }}>
+              <p className="text-5xl md:text-6xl font-semibold mb-1 font-heading" style={{ color: '#C9A84C' }}>
                 {fmt(animatedPayment)}
               </p>
               <p className="text-white/40 text-sm" style={{ fontFamily: "'DM Sans', sans-serif" }}>{freqLabel}</p>
@@ -221,11 +221,11 @@ export default function PaymentCalculatorPage() {
             <div className="grid grid-cols-2 gap-4">
               <div className="rounded-xl p-5 text-center" style={{ background: '#141414', border: '1px solid rgba(255,255,255,0.06)' }}>
                 <p className="text-white/40 text-xs mb-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>Total Interest</p>
-                <p className="text-lg font-bold text-white" style={{ fontFamily: "'Cinzel', serif" }}>{fmt(animatedInterest)}</p>
+                <p className="text-lg font-semibold text-white font-heading">{fmt(animatedInterest)}</p>
               </div>
               <div className="rounded-xl p-5 text-center" style={{ background: '#141414', border: '1px solid rgba(255,255,255,0.06)' }}>
                 <p className="text-white/40 text-xs mb-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>Total Paid</p>
-                <p className="text-lg font-bold text-white" style={{ fontFamily: "'Cinzel', serif" }}>{fmt(animatedTotal)}</p>
+                <p className="text-lg font-semibold text-white font-heading">{fmt(animatedTotal)}</p>
               </div>
             </div>
 
