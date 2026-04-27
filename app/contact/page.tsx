@@ -1,3 +1,5 @@
+import { ContactForm } from '@/components/contact/page';
+
 export default function ContactPage() {
     return (
         <div className="min-h-screen bg-background">
@@ -6,7 +8,7 @@ export default function ContactPage() {
                     <p className="text-accent font-body font-semibold text-sm tracking-[0.15em] uppercase mb-3">
                         Get in Touch
                     </p>
-                    <h1 className="text-3xl md:text-4xl font-heading font-bold text-white">
+                    <h1 className="text-3xl md:text-4xl font-heading font-semibold text-white">
                         Contact Sam Salem
                     </h1>
                     <p className="text-white/70 font-body mt-2 text-base">
@@ -19,19 +21,8 @@ export default function ContactPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
                     {/* Contact Form */}
                     <div className="bg-white rounded-2xl border border-gray-100 p-8 shadow-sm">
-                        <h2 className="text-xl font-heading font-bold text-foreground mb-6">Send a message</h2>
-                        <form className="space-y-4">
-                            <div className="grid grid-cols-2 gap-4">
-                                <input type="text" placeholder="First name" className="px-4 py-3 border border-gray-200 rounded-xl font-body text-sm focus:outline-none focus:border-accent/50 transition-colors" />
-                                <input type="text" placeholder="Last name" className="px-4 py-3 border border-gray-200 rounded-xl font-body text-sm focus:outline-none focus:border-accent/50 transition-colors" />
-                            </div>
-                            <input type="email" placeholder="Email address" className="w-full px-4 py-3 border border-gray-200 rounded-xl font-body text-sm focus:outline-none focus:border-accent/50 transition-colors" />
-                            <input type="tel" placeholder="Phone number" className="w-full px-4 py-3 border border-gray-200 rounded-xl font-body text-sm focus:outline-none focus:border-accent/50 transition-colors" />
-                            <textarea placeholder="Your message" rows={4} className="w-full px-4 py-3 border border-gray-200 rounded-xl font-body text-sm focus:outline-none focus:border-accent/50 transition-colors resize-none" />
-                            <button type="submit" className="w-full py-3 bg-accent text-white font-body font-semibold rounded-full hover:bg-accent-dark transition-all duration-300 shadow-md">
-                                Send Message
-                            </button>
-                        </form>
+                        <h2 className="text-xl font-heading font-semibold text-foreground mb-6">Send a message</h2>
+                        <ContactForm />
                     </div>
 
                     {/* Contact Info */}

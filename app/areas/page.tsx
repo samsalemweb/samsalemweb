@@ -14,7 +14,7 @@ export default function AreasPage() {
                     <p className="text-accent font-body font-semibold text-sm tracking-[0.15em] uppercase mb-3">
                         North Vancouver & Beyond
                     </p>
-                    <h1 className="text-3xl md:text-4xl font-heading font-bold text-white">
+                    <h1 className="text-3xl md:text-4xl font-heading font-semibold text-white">
                         Areas we serve
                     </h1>
                     <p className="text-white/70 font-body mt-2 text-base">

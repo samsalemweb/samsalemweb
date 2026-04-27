@@ -44,7 +44,7 @@ export default function ListingCard({ listing }: ListingCardProps) {
 
             {/* Content */}
             <div className="p-5">
-                <p className="text-xl font-heading font-bold text-primary mb-1">
+                <p className="text-xl font-heading font-semibold text-primary mb-1">
                     {formatPrice(listing.price)}
                 </p>
                 <p className="text-foreground font-body text-sm font-medium mb-1 line-clamp-1">

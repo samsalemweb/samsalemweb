@@ -74,7 +74,7 @@ export default async function BlogPostPage({ params }: Props) {
                                     ))}
                                 </div>
                             )}
-                            <h1 className="text-2xl md:text-4xl font-heading font-bold text-white mb-2">
+                            <h1 className="text-2xl md:text-4xl font-heading font-semibold text-white mb-2">
                                 {post.title}
                             </h1>
                             <p className="text-white/70 font-body text-sm">
@@ -101,7 +101,7 @@ export default async function BlogPostPage({ params }: Props) {
                                 ))}
                             </div>
                         )}
-                        <h1 className="text-2xl md:text-4xl font-heading font-bold text-white mb-2">
+                        <h1 className="text-2xl md:text-4xl font-heading font-semibold text-white mb-2">
                             {post.title}
                         </h1>
                         <p className="text-white/70 font-body text-sm">
@@ -116,7 +116,7 @@ export default async function BlogPostPage({ params }: Props) {
                 <article className="bg-white rounded-2xl border border-gray-100 p-8 md:p-12">
                     <div
                         className="prose prose-lg max-w-none font-body
-                            prose-headings:font-heading prose-headings:text-foreground prose-headings:font-bold
+                            prose-headings:font-heading prose-headings:text-foreground prose-headings:font-semibold
                             prose-p:text-muted prose-p:leading-relaxed
                             prose-a:text-accent prose-a:no-underline hover:prose-a:underline
                             prose-strong:text-foreground

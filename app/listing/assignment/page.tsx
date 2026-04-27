@@ -20,7 +20,7 @@ export default function AssignmentPage() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
                     </div>
-                    <h2 className="text-2xl font-heading text-[#C9A84C] mb-3" style={{ fontFamily: 'Cinzel, serif' }}>
+                    <h2 className="text-2xl font-heading text-[#C9A84C] mb-3">
                         Thank you!
                     </h2>
                     <p className="text-white/70 font-body text-lg" style={{ fontFamily: 'DM Sans, sans-serif' }}>
@@ -39,10 +39,7 @@ export default function AssignmentPage() {
                 <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A] via-[#0A0A0A]/95 to-[#0A0A0A]" />
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="max-w-3xl mx-auto text-center">
-                        <h1
-                            className="text-3xl md:text-4xl lg:text-5xl font-medium text-white mb-6 tracking-tight"
-                            style={{ fontFamily: 'Cinzel, serif' }}
-                        >
+                        <h1 className="text-3xl md:text-4xl lg:text-5xl font-medium text-white mb-6 tracking-tight font-heading">
                             Need to{' '}
                             <span className="text-[#C9A84C]">Assign</span>{' '}
                             Your Pre-Sale?
@@ -351,9 +348,8 @@ export default function AssignmentPage() {
                     <button
                         type="submit"
                         disabled={state.submitting}
-                        className="w-full py-4 rounded-full text-sm font-semibold uppercase tracking-[0.15em] transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+                        className="w-full py-4 rounded-full text-sm font-semibold uppercase tracking-[0.15em] transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed font-heading"
                         style={{
-                            fontFamily: 'Cinzel, serif',
                             background: state.submitting
                                 ? 'rgba(201, 168, 76, 0.3)'
                                 : 'linear-gradient(135deg, #C9A84C 0%, #B89A3E 50%, #8B6914 100%)',

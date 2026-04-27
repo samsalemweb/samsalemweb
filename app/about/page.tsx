@@ -108,7 +108,7 @@ export default function AboutPage() {
                         <div className="md:pb-2">
                             <ScrollReveal direction="up" delay={0.5} blur>
                                 <p className="text-muted font-body text-lg md:text-xl leading-relaxed">
-                                    Sam Salem is committed to making real estate transactions effortless — with 20+ years of experience across luxury homes, presales, and commercial properties in Greater Vancouver.
+                                    Sam Salem is committed to making real estate transactions effortless — with 20+ years of experience across luxury homes, presales, and commercial properties internationally.
                                 </p>
                             </ScrollReveal>
                         </div>
@@ -197,13 +197,17 @@ export default function AboutPage() {
                         </div>
                         <div>
                             <span className="text-white/50 text-sm font-semibold tracking-widest uppercase mb-2 block">Achievement</span>
+                            <h3 className="text-3xl md:text-4xl font-heading font-medium text-white mb-4">Medallion Club 2023</h3>
+                            <p className="text-white/70 font-body text-base leading-relaxed">
+                                Recognized the top 10% of REALTORS® in Greater Vancouver, based on exceptional sales performance and professional excellence
+                            </p>
                             <h3 className="text-3xl md:text-4xl font-heading font-medium text-white mb-4">President Club 2023</h3>
                             <p className="text-white/70 font-body text-base leading-relaxed">
                                 Recognized among the elite Top 1% of all REALTORS® in Greater Vancouver for outstanding sales achievement and client dedication.
                             </p>
                         </div>
                         <div className="mt-8 pt-8 border-t border-white/10">
-                            <div className="text-5xl font-heading font-bold text-accent mb-2">20+</div>
+                            <div className="text-5xl font-heading font-semibold text-accent mb-2">20+</div>
                             <div className="text-white/80 font-body text-sm font-medium tracking-wide uppercase">Years of Luxury & Commercial Experience</div>
                         </div>
                     </motion.div>
@@ -322,7 +326,7 @@ export default function AboutPage() {
                                     whileHover={{ y: -4 }}
                                     transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
                                 >
-                                    <div className="text-3xl font-heading font-bold text-accent/30 mb-4 group-hover:text-accent transition-colors duration-300">
+                                    <div className="text-3xl font-heading font-semibold text-accent/30 mb-4 group-hover:text-accent transition-colors duration-300">
                                         {step.number}
                                     </div>
                                     <h4 className="text-lg font-heading font-medium text-foreground mb-3">
@@ -358,16 +362,16 @@ export default function AboutPage() {
                                 </span>
                             </motion.div>
                         </ScrollReveal>
-                        <h3 className="text-3xl md:text-5xl font-heading font-medium text-foreground mb-3">Sold by Salem</h3>
+                        <h3 className="text-3xl md:text-5xl font-heading font-medium text-foreground mb-3">Sold by Sam</h3>
                         <p className="text-muted font-body text-lg max-w-lg">A selection of properties successfully sold by Sam Salem across Greater Vancouver.</p>
                     </motion.div>
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                         {[
-                            { src: '/sold12.jpg', label: 'Sold' },
-                            { src: '/sold8.jpg', label: 'Sold' },
-                            { src: '/sold9.jpg', label: 'Sold' },
-                            { src: '/sold10.jpg', label: 'Sold' },
-                            { src: '/sold11.jpg', label: 'Sold' },
+                            { src: '/sold (1).jpg', label: 'Sold' },
+                            { src: '/sold (2).jpg', label: 'Sold' },
+                            { src: '/sold (3).jpg', label: 'Sold' },
+                            { src: '/sold (4).jpg', label: 'Sold' },
+                            { src: '/sold (5).jpg', label: 'Sold' },
                         ].map((item, idx) => (
                             <motion.div
                                 key={idx}

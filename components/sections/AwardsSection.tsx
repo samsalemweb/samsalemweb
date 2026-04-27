@@ -66,7 +66,7 @@ export default function AwardsSection() {
                     </ScrollReveal>
                     <WordReveal
                         text="Excellence recognized, trust earned"
-                        className="text-3xl md:text-4xl lg:text-5xl font-cinzel font-bold leading-tight tracking-tight max-w-3xl mx-auto text-white"
+                        className="text-3xl md:text-4xl lg:text-5xl font-cinzel font-semibold leading-tight tracking-tight max-w-3xl mx-auto text-white"
                         delay={0.2}
                     />
                     <ScrollReveal direction="up" delay={0.4}>
@@ -110,7 +110,7 @@ export default function AwardsSection() {
                                                 Award Winner
                                             </span>
                                         </div>
-                                        <h3 className="text-xl md:text-2xl font-cinzel font-bold text-white mb-2">
+                                        <h3 className="text-xl md:text-2xl font-cinzel font-semibold text-white mb-2">
                                             {award.title}
                                         </h3>
                                         <p className="text-white/60 text-sm font-sans leading-relaxed">

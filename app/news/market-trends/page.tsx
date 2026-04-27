@@ -6,7 +6,7 @@ export default function MarketTrendsPage() {
                     <p className="text-accent font-body font-semibold text-sm tracking-[0.15em] uppercase mb-3">
                         Data & Analytics
                     </p>
-                    <h1 className="text-3xl md:text-4xl font-heading font-bold text-white">
+                    <h1 className="text-3xl md:text-4xl font-heading font-semibold text-white">
                         North Vancouver market trends
                     </h1>
                     <p className="text-white/70 font-body mt-2 text-base">
@@ -23,7 +23,7 @@ export default function MarketTrendsPage() {
                         { label: 'Sales-to-List Ratio', value: '102%', change: 'Seller\'s market' },
                     ].map((stat) => (
                         <div key={stat.label} className="bg-white rounded-2xl border border-gray-100 p-6 text-center">
-                            <p className="text-3xl font-heading font-bold text-primary mb-1">{stat.value}</p>
+                            <p className="text-3xl font-heading font-semibold text-primary mb-1">{stat.value}</p>
                             <p className="text-foreground font-body text-sm font-medium mb-1">{stat.label}</p>
                             <p className="text-accent font-body text-xs">{stat.change}</p>
                         </div>
@@ -31,7 +31,7 @@ export default function MarketTrendsPage() {
                 </div>
 
                 <div className="bg-white rounded-2xl border border-gray-100 p-8">
-                    <h2 className="text-xl font-heading font-bold text-foreground mb-4">Market overview</h2>
+                    <h2 className="text-xl font-heading font-semibold text-foreground mb-4">Market overview</h2>
                     <p className="text-muted font-body text-base leading-relaxed mb-4">
                         The North Vancouver real estate market continues to show strong activity in 2025, with detached homes seeing steady appreciation driven by limited inventory and sustained demand from families seeking proximity to nature and urban amenities.
                     </p>

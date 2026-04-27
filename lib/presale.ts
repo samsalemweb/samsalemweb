@@ -192,3 +192,36 @@ export async function getAllPresaleSlugs(): Promise<string[]> {
     const listings = await getAllPresaleListings();
     return listings.map((l) => l.slug);
 }
+
+function normalizeForAreaMatch(s: string): string {
+    return s
+        .split(',')[0]
+        .trim()
+        .toLowerCase();
+}
+
+/**
+ * Presale rows whose City or Neighbourhood matches an Areas We Serve name (e.g. "North Vancouver", "Burnaby").
+ */
+export function filterPresaleListingsByAreaName(
+    list: PresaleWithImages[],
+    areaName: string
+): PresaleWithImages[] {
+    const target = normalizeForAreaMatch(areaName);
+    if (!target) return [];
+    return list.filter((p) => {
+        const city = normalizeForAreaMatch(p.city || '');
+        const neighbourhood = normalizeForAreaMatch(p.neighbourhood || '');
+        return city === target || neighbourhood === target;
+    });
+}
+
+/**
+ * All presale listings for a given area page (Supabase), filtered to match {areaName}.
+ */
+export async function getPresaleListingsForAreaName(
+    areaName: string
+): Promise<PresaleWithImages[]> {
+    const all = await getAllPresaleListings();
+    return filterPresaleListingsByAreaName(all, areaName);
+}

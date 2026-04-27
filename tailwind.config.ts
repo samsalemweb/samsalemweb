@@ -26,10 +26,11 @@ const config: Config = {
         border: "#E5E5E5",
       },
       fontFamily: {
-        cinzel: ['Cinzel', 'serif'],
-        cormorant: ['Cormorant Garamond', 'serif'],
+        /* Display / titles: Cormorant Garamond reads lighter than Cinzel at the same weight */
+        cinzel: ['Cormorant Garamond', 'Georgia', 'serif'],
+        cormorant: ['Cormorant Garamond', 'Georgia', 'serif'],
         sans: ['DM Sans', 'sans-serif'],
-        heading: ['Cinzel', 'Georgia', 'serif'],
+        heading: ['Cormorant Garamond', 'Georgia', 'serif'],
         body: ['DM Sans', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
