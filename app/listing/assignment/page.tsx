@@ -1,17 +1,62 @@
 'use client';
 
-import { useForm, ValidationError } from '@formspree/react';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 
 const bedroomOptions = ['0', '1', '2', '3', '4', '5', '5+'];
 const bathroomOptions = ['0', '1', '2', '3', '4', '5', '5+'];
 
 export default function AssignmentPage() {
-    const [state, handleSubmit] = useForm('mnnvgqgd');
     const [bedrooms, setBedrooms] = useState('');
     const [bathrooms, setBathrooms] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [submitError, setSubmitError] = useState('');
 
-    if (state.succeeded) {
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        setSubmitError('');
+        setIsSubmitting(true);
+
+        const formData = new FormData(event.currentTarget);
+        const payload = {
+            email: String(formData.get('email') ?? ''),
+            fullName: String(formData.get('fullName') ?? ''),
+            phone: String(formData.get('phone') ?? ''),
+            propertyAddress: String(formData.get('propertyAddress') ?? ''),
+            projectName: String(formData.get('projectName') ?? ''),
+            city: String(formData.get('city') ?? ''),
+            postalCode: String(formData.get('postalCode') ?? ''),
+            bedrooms: String(formData.get('bedrooms') ?? ''),
+            bathrooms: String(formData.get('bathrooms') ?? ''),
+            size: String(formData.get('size') ?? ''),
+            features: String(formData.get('features') ?? ''),
+        };
+
+        try {
+            const response = await fetch('/api/listing-assignment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+
+            const data: { error?: string } = await response.json().catch(() => ({}));
+            if (!response.ok) {
+                throw new Error(data.error || 'Failed to submit form. Please try again.');
+            }
+
+            setIsSubmitted(true);
+            event.currentTarget.reset();
+            setBedrooms('');
+            setBathrooms('');
+        } catch (error) {
+            const message = error instanceof Error ? error.message : 'Failed to submit form. Please try again.';
+            setSubmitError(message);
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    if (isSubmitted) {
         return (
             <div className="min-h-screen flex items-center justify-center" style={{ background: '#0A0A0A' }}>
                 <div className="text-center max-w-md mx-auto px-4">
@@ -93,7 +138,6 @@ export default function AssignmentPage() {
                             }}
                             placeholder="you@example.com"
                         />
-                        <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-400 text-xs mt-1" />
                     </div>
 
                     {/* Full Name */}
@@ -344,22 +388,31 @@ export default function AssignmentPage() {
                         />
                     </div>
 
+                    {submitError && (
+                        <p
+                            className="text-sm"
+                            style={{ color: '#fca5a5', fontFamily: 'DM Sans, sans-serif' }}
+                        >
+                            {submitError}
+                        </p>
+                    )}
+
                     {/* Submit Button */}
                     <button
                         type="submit"
-                        disabled={state.submitting}
+                        disabled={isSubmitting}
                         className="w-full py-4 rounded-full text-sm font-semibold uppercase tracking-[0.15em] transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed font-heading"
                         style={{
-                            background: state.submitting
+                            background: isSubmitting
                                 ? 'rgba(201, 168, 76, 0.3)'
                                 : 'linear-gradient(135deg, #C9A84C 0%, #B89A3E 50%, #8B6914 100%)',
-                            color: state.submitting ? '#C9A84C' : '#000',
-                            boxShadow: state.submitting
+                            color: isSubmitting ? '#C9A84C' : '#000',
+                            boxShadow: isSubmitting
                                 ? 'none'
                                 : '0 4px 20px rgba(201, 168, 76, 0.3)',
                         }}
                     >
-                        {state.submitting && (
+                        {isSubmitting && (
                             <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
