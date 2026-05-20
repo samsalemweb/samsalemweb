@@ -14,175 +14,248 @@ function deriveSlug(name: string): string {
     return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 }
 
+/** Stable URL slug: id prefix avoids collisions when listing names repeat. */
+export function buildPresaleSlug(id: number, listingName: string): string {
+    const base = deriveSlug(listingName);
+    return base ? `${id}-${base}` : String(id);
+}
+
+function parsePresaleSlug(slug: string): { id: number | null; legacySlug: string } {
+    const match = slug.match(/^(\d+)-(.+)$/);
+    if (match) {
+        return { id: Number(match[1]), legacySlug: match[2] };
+    }
+    return { id: null, legacySlug: slug };
+}
+
+function pickString(row: Record<string, unknown>, ...keys: string[]): string {
+    for (const key of keys) {
+        const value = row[key];
+        if (typeof value === 'string' && value.trim() !== '') {
+            return value.trim();
+        }
+    }
+    return '';
+}
+
 /**
- * Map a raw Supabase row (with space/special-char column names) to our TS interface.
+ * Map a Supabase presale_listings row (quoted column names) to our TS interface.
  */
-function mapRawListing(row: Record<string, unknown>): PresaleListing {
+function mapRawListing(row: Record<string, unknown>): PresaleListing | null {
+    const listingName = pickString(row, 'Listing Name', 'listing_name');
+    if (!listingName) return null;
+
+    const idRaw = row.id ?? row.ID;
+    const id = typeof idRaw === 'number' ? idRaw : Number(idRaw);
+    if (!Number.isFinite(id)) return null;
+
     return {
-        listing_name: (row['Listing Name'] as string) || '',
-        developer: (row['Developer'] as string) || '',
-        city: (row['City'] as string) || '',
-        neighbourhood: (row['Neighbourhood'] as string) || '',
-        price_range: (row['Price Range'] as string) || '',
-        listing_status: (row['Listing Status'] as string) || '',
-        build_status: (row['Build Status'] as string) || '',
-        move_in: (row['Move-In'] as string) || '',
-        beds: (row['Beds'] as string) || '',
-        baths: (row['Baths'] as string) || '',
-        sq_ft: (row['Sq Ft'] as string) || '',
-        strata_fee: (row['Strata Fee'] as string) || '',
-        units_avail: (row['Units Avail.'] as string) || '',
-        total_units: (row['Total Units'] as string) || '',
-        property_type: (row['Property Type'] as string) || '',
-        sales_center_address: (row['Sales Center Address'] as string) || '',
-        phone: (row['Phone'] as string) || '',
-        email: (row['Email'] as string) || '',
-        source_url: (row['Source URL'] as string) || '',
+        id,
+        listing_name: listingName,
+        developer: pickString(row, 'Developer', 'developer'),
+        city: pickString(row, 'City', 'city'),
+        neighbourhood: pickString(row, 'Neighbourhood', 'neighbourhood'),
+        price_range: pickString(row, 'Price Range', 'price_range'),
+        listing_status: pickString(row, 'Listing Status', 'listing_status'),
+        build_status: pickString(row, 'Build Status', 'build_status'),
+        move_in: pickString(row, 'Move-In', 'move_in'),
+        beds: pickString(row, 'Beds', 'beds'),
+        baths: pickString(row, 'Baths', 'baths'),
+        sq_ft: pickString(row, 'Sq Ft', 'sq_ft'),
+        strata_fee: pickString(row, 'Strata Fee', 'strata_fee'),
+        units_avail: pickString(row, 'Units Avail.', 'units_avail'),
+        total_units: pickString(row, 'Total Units', 'total_units'),
+        property_type: pickString(row, 'Property Type', 'property_type'),
+        sales_center_address: pickString(row, 'Sales Center Address', 'sales_center_address'),
+        phone: pickString(row, 'Phone', 'phone'),
+        email: pickString(row, 'Email', 'email'),
+        source_url: pickString(row, 'Source URL', 'source_url'),
     };
 }
 
-function mapRawImage(row: Record<string, unknown>): PresaleListingImage {
+function mapRawImage(row: Record<string, unknown>): PresaleListingImage | null {
+    const listingName = pickString(row, 'Listing Name', 'listing_name');
+    if (!listingName) return null;
+
+    const imageNumberRaw = row['Image #'] ?? row.image_number;
+    const image_number =
+        typeof imageNumberRaw === 'number' ? imageNumberRaw : Number(imageNumberRaw) || 0;
+
     return {
-        listing_name: (row['Listing Name'] as string) || '',
-        slug: (row['Slug'] as string) || '',
-        image_number: (row['Image #'] as number) || 0,
-        cloudinary_public_id: (row['Cloudinary Public ID'] as string) || '',
-        original_livabl_image_url: (row['Original Livabl Image URL'] as string) || '',
-        cloudinary_url: (row['Cloudinary URL (fill after upload)'] as string) || '',
+        listing_name: listingName,
+        slug: pickString(row, 'Slug', 'slug'),
+        image_number,
+        cloudinary_public_id: pickString(row, 'Cloudinary Public ID', 'cloudinary_public_id'),
+        original_livabl_image_url: pickString(
+            row,
+            'Original Livabl Image URL',
+            'original_livabl_image_url',
+        ),
+        cloudinary_url: pickString(row, 'Cloudinary URL (fill after upload)', 'cloudinary_url'),
+    };
+}
+
+function normalizePriceRange(priceRange: string): string {
+    if (!priceRange) return priceRange;
+    if (priceRange.toLowerCase().includes('see source url')) {
+        return 'Pricing Coming Soon';
+    }
+    return priceRange;
+}
+
+function shouldIncludeListing(listing: PresaleListing): boolean {
+    if (listing.property_type === 'Builder Page') return false;
+    if (listing.price_range && listing.price_range.includes('N/A')) return false;
+    if (listing.listing_status === 'Sold Out') return false;
+    return true;
+}
+
+async function fetchPresaleImages(): Promise<PresaleListingImage[]> {
+    const { data, error } = await supabase.from('presale_listing_images').select('*');
+
+    if (error) {
+        // Images table is optional; listings still work without it.
+        console.warn('presale_listing_images unavailable:', error.message);
+        return [];
+    }
+
+    return (data || [])
+        .map((row) => mapRawImage(row as Record<string, unknown>))
+        .filter((img): img is PresaleListingImage => img !== null)
+        .sort((a, b) => a.image_number - b.image_number);
+}
+
+function attachImages(
+    listing: PresaleListing,
+    imagesByName: Map<string, PresaleListingImage[]>,
+    slugByName: Map<string, string>,
+): PresaleWithImages {
+    const listingImages = imagesByName.get(listing.listing_name) || [];
+
+    const resolvedImages = listingImages
+        .map((img) => ({
+            url: resolveImageUrl(img),
+            alt: `${listing.listing_name} - Image ${img.image_number}`,
+        }))
+        .filter((img) => img.url !== '');
+
+    const slug =
+        slugByName.get(listing.listing_name) || buildPresaleSlug(listing.id, listing.listing_name);
+
+    return {
+        ...listing,
+        price_range: normalizePriceRange(listing.price_range),
+        slug,
+        images: resolvedImages,
+        cover_image: resolvedImages.length > 0 ? resolvedImages[0].url : null,
     };
 }
 
 // ---- public API ----
 
 /**
- * Fetch all presale listings with images joined.
- * Filters out Builder Page entries and N/A price ranges.
+ * Fetch all presale listings with optional images joined.
  */
 export async function getAllPresaleListings(): Promise<PresaleWithImages[]> {
-    const [listingsRes, imagesRes] = await Promise.all([
-        supabase
-            .from('presale_listings')
-            .select('"Listing Name", "Developer", "City", "Neighbourhood", "Price Range", "Listing Status", "Build Status", "Move-In", "Beds", "Baths", "Sq Ft", "Strata Fee", "Units Avail.", "Total Units", "Property Type", "Sales Center Address", "Phone", "Email", "Source URL"'),
-        supabase
-            .from('presale_listing_images')
-            .select('"Listing Name", "Slug", "Image #", "Cloudinary Public ID", "Original Livabl Image URL", "Cloudinary URL (fill after upload)"')
-            .order('"Image #"', { ascending: true }),
+    const [listingsRes, images] = await Promise.all([
+        supabase.from('presale_listings').select('*'),
+        fetchPresaleImages(),
     ]);
 
     if (listingsRes.error) {
         console.error('Error fetching presale_listings:', listingsRes.error);
         return [];
     }
-    if (imagesRes.error) {
-        console.error('Error fetching presale_listing_images:', imagesRes.error);
-    }
 
     const rawListings = (listingsRes.data || []) as Record<string, unknown>[];
-    const rawImages = (imagesRes.data || []) as Record<string, unknown>[];
+    const listings = rawListings
+        .map(mapRawListing)
+        .filter((listing): listing is PresaleListing => listing !== null)
+        .filter(shouldIncludeListing);
 
-    const listings = rawListings.map(mapRawListing);
-    const images = rawImages.map(mapRawImage);
-
-    // Group images by listing name
     const imagesByName = new Map<string, PresaleListingImage[]>();
+    const slugByName = new Map<string, string>();
+
     for (const img of images) {
         const key = img.listing_name;
         if (!imagesByName.has(key)) imagesByName.set(key, []);
         imagesByName.get(key)!.push(img);
-    }
-
-    // Build slug map from images table
-    const slugByName = new Map<string, string>();
-    for (const img of images) {
-        if (img.slug && !slugByName.has(img.listing_name)) {
-            slugByName.set(img.listing_name, img.slug);
+        if (img.slug && !slugByName.has(key)) {
+            slugByName.set(key, img.slug);
         }
     }
 
-    const results: PresaleWithImages[] = [];
-
-    for (const listing of listings) {
-        // Filter out builder pages, N/A entries, and Sold Out listings
-        if (listing.property_type === 'Builder Page') continue;
-        if (listing.price_range && listing.price_range.includes('N/A')) continue;
-        if (listing.listing_status === 'Sold Out') continue;
-
-        // Replace "See source URL" with user-friendly text
-        if (listing.price_range && listing.price_range.toLowerCase().includes('see source url')) {
-            listing.price_range = 'Pricing Coming Soon';
-        }
-
-        const slug = slugByName.get(listing.listing_name) || deriveSlug(listing.listing_name);
-        const listingImages = imagesByName.get(listing.listing_name) || [];
-
-        const resolvedImages = listingImages.map((img) => ({
-            url: resolveImageUrl(img),
-            alt: `${listing.listing_name} - Image ${img.image_number}`,
-        })).filter((img) => img.url !== '');
-
-        results.push({
-            ...listing,
-            slug,
-            images: resolvedImages,
-            cover_image: resolvedImages.length > 0 ? resolvedImages[0].url : null,
-        });
-    }
-
-    return results;
+    return listings.map((listing) => attachImages(listing, imagesByName, slugByName));
 }
 
 /**
  * Fetch a single presale listing by slug.
  */
 export async function getPresaleBySlug(slug: string): Promise<PresaleWithImages | null> {
-    // Find the listing name from the images table by slug
-    const { data: imgRows, error: imgError } = await supabase
-        .from('presale_listing_images')
-        .select('"Listing Name", "Slug", "Image #", "Cloudinary Public ID", "Original Livabl Image URL", "Cloudinary URL (fill after upload)"')
-        .eq('Slug', slug)
-        .order('"Image #"', { ascending: true });
+    const { id: slugId, legacySlug } = parsePresaleSlug(slug);
 
-    if (imgError) {
-        console.error('Error fetching images by slug:', imgError);
+    if (slugId !== null) {
+        const { data, error } = await supabase
+            .from('presale_listings')
+            .select('*')
+            .eq('id', slugId)
+            .maybeSingle();
+
+        if (!error && data) {
+            const listing = mapRawListing(data as Record<string, unknown>);
+            if (listing && shouldIncludeListing(listing)) {
+                const images = await fetchPresaleImages();
+                const imagesByName = new Map<string, PresaleListingImage[]>();
+                const slugByName = new Map<string, string>();
+                for (const img of images) {
+                    if (!imagesByName.has(img.listing_name)) imagesByName.set(img.listing_name, []);
+                    imagesByName.get(img.listing_name)!.push(img);
+                    if (img.slug && !slugByName.has(img.listing_name)) {
+                        slugByName.set(img.listing_name, img.slug);
+                    }
+                }
+                return attachImages(listing, imagesByName, slugByName);
+            }
+        }
     }
 
-    const rawImgRows = (imgRows || []) as Record<string, unknown>[];
-    const images = rawImgRows.map(mapRawImage);
+    // Legacy slugs from images table or name-only slugs
+    const images = await fetchPresaleImages();
+    const imageMatch = images.find(
+        (img) => img.slug === slug || img.slug === legacySlug,
+    );
 
-    const listingName = images.length > 0 ? images[0].listing_name : null;
+    if (imageMatch) {
+        const { data, error } = await supabase
+            .from('presale_listings')
+            .select('*')
+            .eq('Listing Name', imageMatch.listing_name)
+            .limit(1);
 
-    // If no images matched, try to find by derived slug
-    if (!listingName) {
-        const allListings = await getAllPresaleListings();
-        const match = allListings.find((l) => l.slug === slug);
-        return match || null;
+        if (!error && data && data.length > 0) {
+            const listing = mapRawListing(data[0] as Record<string, unknown>);
+            if (listing && shouldIncludeListing(listing)) {
+                const imagesByName = new Map<string, PresaleListingImage[]>();
+                const slugByName = new Map<string, string>([[imageMatch.listing_name, slug]]);
+                for (const img of images) {
+                    if (!imagesByName.has(img.listing_name)) imagesByName.set(img.listing_name, []);
+                    imagesByName.get(img.listing_name)!.push(img);
+                }
+                return attachImages(listing, imagesByName, slugByName);
+            }
+        }
     }
 
-    // Fetch the listing row
-    const { data: listingRows, error: listingError } = await supabase
-        .from('presale_listings')
-        .select('"Listing Name", "Developer", "City", "Neighbourhood", "Price Range", "Listing Status", "Build Status", "Move-In", "Beds", "Baths", "Sq Ft", "Strata Fee", "Units Avail.", "Total Units", "Property Type", "Sales Center Address", "Phone", "Email", "Source URL"')
-        .eq('Listing Name', listingName)
-        .limit(1);
-
-    if (listingError || !listingRows || listingRows.length === 0) {
-        console.error('Error fetching presale listing by name:', listingError);
-        return null;
-    }
-
-    const listing = mapRawListing(listingRows[0] as Record<string, unknown>);
-
-    const resolvedImages = images.map((img) => ({
-        url: resolveImageUrl(img),
-        alt: `${listing.listing_name} - Image ${img.image_number}`,
-    })).filter((img) => img.url !== '');
-
-    return {
-        ...listing,
-        slug,
-        images: resolvedImages,
-        cover_image: resolvedImages.length > 0 ? resolvedImages[0].url : null,
-    };
+    const allListings = await getAllPresaleListings();
+    return (
+        allListings.find(
+            (l) =>
+                l.slug === slug ||
+                l.slug === legacySlug ||
+                deriveSlug(l.listing_name) === legacySlug ||
+                deriveSlug(l.listing_name) === slug,
+        ) ?? null
+    );
 }
 
 /**
@@ -194,18 +267,15 @@ export async function getAllPresaleSlugs(): Promise<string[]> {
 }
 
 function normalizeForAreaMatch(s: string): string {
-    return s
-        .split(',')[0]
-        .trim()
-        .toLowerCase();
+    return s.split(',')[0].trim().toLowerCase();
 }
 
 /**
- * Presale rows whose City or Neighbourhood matches an Areas We Serve name (e.g. "North Vancouver", "Burnaby").
+ * Presale rows whose City or Neighbourhood matches an Areas We Serve name.
  */
 export function filterPresaleListingsByAreaName(
     list: PresaleWithImages[],
-    areaName: string
+    areaName: string,
 ): PresaleWithImages[] {
     const target = normalizeForAreaMatch(areaName);
     if (!target) return [];
@@ -216,11 +286,8 @@ export function filterPresaleListingsByAreaName(
     });
 }
 
-/**
- * All presale listings for a given area page (Supabase), filtered to match {areaName}.
- */
 export async function getPresaleListingsForAreaName(
-    areaName: string
+    areaName: string,
 ): Promise<PresaleWithImages[]> {
     const all = await getAllPresaleListings();
     return filterPresaleListingsByAreaName(all, areaName);

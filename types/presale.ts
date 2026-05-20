@@ -1,4 +1,5 @@
 export interface PresaleListing {
+  id: number;
   listing_name: string;
   developer: string;
   city: string;

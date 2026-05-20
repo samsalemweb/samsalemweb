@@ -102,7 +102,7 @@ export default function PresaleGrid({ listings }: PresaleGridProps) {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {filtered.map((listing) => (
-                        <PresaleCard key={listing.slug} listing={listing} />
+                        <PresaleCard key={listing.id} listing={listing} />
                     ))}
                 </div>
             )}

@@ -41,7 +41,12 @@ export default function AssignmentPage() {
 
             const data: { error?: string } = await response.json().catch(() => ({}));
             if (!response.ok) {
-                throw new Error(data.error || 'Failed to submit form. Please try again.');
+                throw new Error(
+                    data.error ||
+                        (response.status === 503
+                            ? 'Email is not configured on the server. Please contact Sam directly.'
+                            : 'Failed to submit form. Please try again.'),
+                );
             }
 
             setIsSubmitted(true);
