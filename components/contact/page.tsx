@@ -46,7 +46,12 @@ export function ContactForm() {
         const body = (await res.json()) as { success?: boolean; error?: string };
 
         if (!res.ok) {
-            setSubmitError(body.error || 'Something went wrong. Please try again.');
+            setSubmitError(
+                body.error ||
+                    (res.status === 503
+                        ? 'Email is not configured on the server. Please call or email Sam directly.'
+                        : 'Something went wrong. Please try again.'),
+            );
             return;
         }
 

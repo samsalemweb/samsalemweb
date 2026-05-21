@@ -102,13 +102,24 @@ export async function POST(req: Request) {
 
         if (error) {
             console.error('Resend error:', error);
-            return Response.json({ error: 'Failed to send message. Please try again later.' }, { status: 502 });
+            return Response.json(
+                { error: resendErrorMessage(error) },
+                { status: 502 },
+            );
         }
 
         return Response.json({ success: true });
-    } catch {
+    } catch (err) {
+        console.error('Listing assignment API error:', err);
         return Response.json({ error: 'Invalid request body.' }, { status: 400 });
     }
+}
+
+function resendErrorMessage(error: unknown): string {
+    if (error && typeof error === 'object' && 'message' in error && typeof error.message === 'string') {
+        return error.message;
+    }
+    return 'Failed to send message. Please try again later.';
 }
 
 function escapeHtml(s: string): string {

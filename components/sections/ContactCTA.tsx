@@ -1,10 +1,22 @@
 'use client';
 
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ScrollReveal from '@/components/animations/ScrollReveal';
 import { WordReveal } from '@/components/animations/TextReveal';
 import { MagneticButton } from '@/components/animations/HoverCard';
+
+function splitFullName(fullName: string): { firstName: string; lastName: string } {
+    const trimmed = fullName.trim();
+    const space = trimmed.indexOf(' ');
+    if (space === -1) {
+        return { firstName: trimmed, lastName: trimmed };
+    }
+    return {
+        firstName: trimmed.slice(0, space),
+        lastName: trimmed.slice(space + 1).trim() || trimmed.slice(0, space),
+    };
+}
 
 const faqs = [
     {
@@ -36,6 +48,66 @@ const faqs = [
 export default function ContactCTA() {
     const [openFaq, setOpenFaq] = useState<number | null>(null);
     const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '' });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitError, setSubmitError] = useState<string | null>(null);
+    const [succeeded, setSucceeded] = useState(false);
+
+    const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        setSubmitError(null);
+
+        const name = formData.name.trim();
+        const phone = formData.phone.trim();
+        const email = formData.email.trim();
+        const message = formData.message.trim();
+
+        if (!name) {
+            setSubmitError('Please enter your name.');
+            return;
+        }
+        if (!phone) {
+            setSubmitError('Please enter your phone number.');
+            return;
+        }
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            setSubmitError('Please enter a valid email address.');
+            return;
+        }
+        if (message.length < 10) {
+            setSubmitError('Please enter a message of at least 10 characters.');
+            return;
+        }
+
+        const { firstName, lastName } = splitFullName(name);
+        setIsSubmitting(true);
+
+        try {
+            const res = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ firstName, lastName, email, phone, message }),
+            });
+
+            const body = (await res.json()) as { success?: boolean; error?: string };
+
+            if (!res.ok) {
+                setSubmitError(
+                    body.error ||
+                        (res.status === 503
+                            ? 'Email is not configured on the server. Please use the Contact page or call Sam directly.'
+                            : 'Something went wrong. Please try again.'),
+                );
+                return;
+            }
+
+            setFormData({ name: '', phone: '', email: '', message: '' });
+            setSucceeded(true);
+        } catch {
+            setSubmitError('Network error. Please try again.');
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
 
     return (
         <section className="py-16 md:py-28">
@@ -63,58 +135,92 @@ export default function ContactCTA() {
                                 We&apos;re just a form away — send us your question, and we&apos;ll be happy to help!
                             </h3>
 
-                            <form className="mt-8 space-y-5">
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div>
-                                        <label className="text-xs font-semibold tracking-widest uppercase text-muted mb-2 block">Name</label>
-                                        <input
-                                            type="text"
-                                            placeholder="Jane Smith"
-                                            value={formData.name}
-                                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                            className="w-full px-4 py-3 bg-white/60 border border-border rounded-xl text-sm focus:outline-none focus:border-accent/50 placeholder:text-muted/40 transition-all duration-300 focus:shadow-lg focus:shadow-accent/5"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="text-xs font-semibold tracking-widest uppercase text-muted mb-2 block">Phone</label>
-                                        <input
-                                            type="tel"
-                                            placeholder="(604) 555-1234"
-                                            value={formData.phone}
-                                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                                            className="w-full px-4 py-3 bg-white/60 border border-border rounded-xl text-sm focus:outline-none focus:border-accent/50 placeholder:text-muted/40 transition-all duration-300 focus:shadow-lg focus:shadow-accent/5"
-                                        />
-                                    </div>
-                                </div>
-                                <div>
-                                    <label className="text-xs font-semibold tracking-widest uppercase text-muted mb-2 block">Email</label>
-                                    <input
-                                        type="email"
-                                        placeholder="jane@email.com"
-                                        value={formData.email}
-                                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                        className="w-full px-4 py-3 bg-white/60 border border-border rounded-xl text-sm focus:outline-none focus:border-accent/50 placeholder:text-muted/40 transition-all duration-300 focus:shadow-lg focus:shadow-accent/5"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="text-xs font-semibold tracking-widest uppercase text-muted mb-2 block">Message</label>
-                                    <textarea
-                                        rows={4}
-                                        placeholder="Write your message here"
-                                        value={formData.message}
-                                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                        className="w-full px-4 py-3 bg-white/60 border border-border rounded-xl text-sm focus:outline-none focus:border-accent/50 placeholder:text-muted/40 resize-none transition-all duration-300 focus:shadow-lg focus:shadow-accent/5"
-                                    />
-                                </div>
-                                <MagneticButton className="w-full">
-                                    <button type="submit" className="btn-pill btn-pill-dark w-full justify-center">
-                                        Send Message
-                                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                        </svg>
+                            {succeeded ? (
+                                <div className="mt-8 rounded-2xl border border-accent/20 bg-accent/5 px-6 py-8 text-center">
+                                    <p className="text-sm font-medium text-foreground mb-1">Message sent</p>
+                                    <p className="text-sm text-muted mb-4">Thank you. Sam will get back to you as soon as possible.</p>
+                                    <button
+                                        type="button"
+                                        onClick={() => setSucceeded(false)}
+                                        className="text-accent text-sm font-semibold hover:underline"
+                                    >
+                                        Send another message
                                     </button>
-                                </MagneticButton>
-                            </form>
+                                </div>
+                            ) : (
+                                <form className="mt-8 space-y-5" onSubmit={handleFormSubmit} noValidate>
+                                    {submitError && (
+                                        <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+                                            {submitError}
+                                        </div>
+                                    )}
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="text-xs font-semibold tracking-widest uppercase text-muted mb-2 block">Name</label>
+                                            <input
+                                                type="text"
+                                                placeholder="Jane Smith"
+                                                value={formData.name}
+                                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                                disabled={isSubmitting}
+                                                required
+                                                className="w-full px-4 py-3 bg-white/60 border border-border rounded-xl text-sm focus:outline-none focus:border-accent/50 placeholder:text-muted/40 transition-all duration-300 focus:shadow-lg focus:shadow-accent/5 disabled:opacity-60"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="text-xs font-semibold tracking-widest uppercase text-muted mb-2 block">Phone</label>
+                                            <input
+                                                type="tel"
+                                                placeholder="(604) 555-1234"
+                                                value={formData.phone}
+                                                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                                                disabled={isSubmitting}
+                                                required
+                                                className="w-full px-4 py-3 bg-white/60 border border-border rounded-xl text-sm focus:outline-none focus:border-accent/50 placeholder:text-muted/40 transition-all duration-300 focus:shadow-lg focus:shadow-accent/5 disabled:opacity-60"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label className="text-xs font-semibold tracking-widest uppercase text-muted mb-2 block">Email</label>
+                                        <input
+                                            type="email"
+                                            placeholder="jane@email.com"
+                                            value={formData.email}
+                                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                            disabled={isSubmitting}
+                                            required
+                                            className="w-full px-4 py-3 bg-white/60 border border-border rounded-xl text-sm focus:outline-none focus:border-accent/50 placeholder:text-muted/40 transition-all duration-300 focus:shadow-lg focus:shadow-accent/5 disabled:opacity-60"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="text-xs font-semibold tracking-widest uppercase text-muted mb-2 block">Message</label>
+                                        <textarea
+                                            rows={4}
+                                            placeholder="Write your message here"
+                                            value={formData.message}
+                                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                                            disabled={isSubmitting}
+                                            required
+                                            minLength={10}
+                                            className="w-full px-4 py-3 bg-white/60 border border-border rounded-xl text-sm focus:outline-none focus:border-accent/50 placeholder:text-muted/40 resize-none transition-all duration-300 focus:shadow-lg focus:shadow-accent/5 disabled:opacity-60"
+                                        />
+                                    </div>
+                                    <MagneticButton className="w-full">
+                                        <button
+                                            type="submit"
+                                            disabled={isSubmitting}
+                                            className="btn-pill btn-pill-dark w-full justify-center disabled:opacity-60 disabled:cursor-not-allowed"
+                                        >
+                                            {isSubmitting ? 'Sending…' : 'Send Message'}
+                                            {!isSubmitting && (
+                                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                                </svg>
+                                            )}
+                                        </button>
+                                    </MagneticButton>
+                                </form>
+                            )}
                         </div>
                     </ScrollReveal>
 
