@@ -197,7 +197,10 @@ export default function AboutPage() {
                         </div>
                         <div>
                             <span className="text-white/50 text-sm font-semibold tracking-widest uppercase mb-2 block">Achievement</span>
-                            <h3 className="text-3xl md:text-4xl font-heading font-medium text-white mb-4">Medallion Club 2023</h3>
+                            <h3 className="text-3xl md:text-4xl font-heading font-medium text-white mb-4">Medallion Club</h3>
+                            <p className="text-white/70 font-body font-bold text-base leading-relaxed">
+                            Multi-year qualifier for the prestigious Medallion Club.
+                            </p>
                             <p className="text-white/70 font-body text-base leading-relaxed">
                                 Recognized the top 10% of REALTORS® in Greater Vancouver, based on exceptional sales performance and professional excellence
                             </p>
