@@ -24,9 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
         title: post.meta_title || `${post.title} | Sam Salem`,
         description: post.meta_description || post.excerpt || '',
-        alternates: {
-        canonical: `/news/articles/${params.slug}`,
-    },
+
         openGraph: {
             title: post.meta_title || post.title,
             description: post.meta_description || post.excerpt || '',
