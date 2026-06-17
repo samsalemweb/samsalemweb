@@ -5,9 +5,13 @@ import Footer from "@/components/layout/Footer";
 import AnimationProvider from "@/components/animations/AnimationProvider";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.sam-salem.com"),
   title: "Sam Salem | PREC | Sincere Real Estate Services",
   description:
     "Sam Salem — Strong focus on Presales, Condo, and luxury homes with deep market insight and polished marketing. Top 1% of all REALTORS in Greater Vancouver, President Club 2023.",
+alternates: {
+    canonical: "/",
+  },
 };
 
 export default function RootLayout({
