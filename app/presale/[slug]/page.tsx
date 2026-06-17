@@ -38,6 +38,9 @@ export async function generateMetadata({
     return {
         title: `${listing.listing_name} | Presale | Sam Salem`,
         description: `${listing.listing_name} by ${listing.developer} in ${listing.city}. ${listing.price_range}`,
+        alternates: {
+        canonical: `/presale/${slug}`,
+    },
         openGraph: {
             title: `${listing.listing_name} | Presale | Sam Salem`,
             description: `${listing.listing_name} by ${listing.developer} in ${listing.city}`,
