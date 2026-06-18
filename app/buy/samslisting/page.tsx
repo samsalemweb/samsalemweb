@@ -35,7 +35,7 @@ export default async function SamSalemsListingPage() {
                         Active Listings
                     </span>
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-cinzel font-medium text-white mb-6 tracking-tight">
-                        Sam Salem's Greater Vancouver Real Estate Listings
+                        Sam Salem&apos;s Greater Vancouver Real Estate Listings
                     </h1>
                     <p className="max-w-3xl mx-auto mt-6 text-white/80 font-body text-lg">
   Browse Sam Salem's featured real estate listings across Greater Vancouver,
