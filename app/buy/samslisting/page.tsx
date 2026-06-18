@@ -38,7 +38,7 @@ export default async function SamSalemsListingPage() {
                         Sam Salem&apos;s Greater Vancouver Real Estate Listings
                     </h1>
                     <p className="max-w-3xl mx-auto mt-6 text-white/80 font-body text-lg">
-  Browse Sam Salem's featured real estate listings across Greater Vancouver,
+  Browse Sam Salem&apos;s featured real estate listings across Greater Vancouver,
   including Vancouver, Burnaby, Coquitlam, North Vancouver, West Vancouver,
   Richmond, Surrey, and surrounding communities. Explore condos, townhomes,
   detached homes, and investment properties currently available on the market.
