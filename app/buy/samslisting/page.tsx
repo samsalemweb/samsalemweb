@@ -35,8 +35,14 @@ export default async function SamSalemsListingPage() {
                         Active Listings
                     </span>
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-cinzel font-medium text-white mb-6 tracking-tight">
-                        Sam Salem&apos;s Current Listings
+                        Sam Salem's Greater Vancouver Real Estate Listings
                     </h1>
+                    <p className="max-w-3xl mx-auto mt-6 text-white/80 font-body text-lg">
+  Browse Sam Salem's featured real estate listings across Greater Vancouver,
+  including Vancouver, Burnaby, Coquitlam, North Vancouver, West Vancouver,
+  Richmond, Surrey, and surrounding communities. Explore condos, townhomes,
+  detached homes, and investment properties currently available on the market.
+</p>
                     <div className="w-24 h-[2px] mx-auto" style={{ backgroundColor: '#C9A84C' }} />
                 </div>
             </div>
