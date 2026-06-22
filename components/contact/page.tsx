@@ -4,6 +4,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+declare global {
+  interface Window {
+    dataLayer: Record<string, unknown>[];
+  }
+}
 
 const schema = z.object({
     firstName: z.string().trim().min(1, 'First name is required').max(100),
@@ -54,7 +59,13 @@ export function ContactForm() {
             );
             return;
         }
-
+if (typeof window !== "undefined") {
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: "generate_lead",
+    form_name: "contact_form",
+  });
+}
         reset();
         setSucceeded(true);
     });
