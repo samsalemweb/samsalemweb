@@ -55,11 +55,11 @@ export function ContactForm() {
             return;
         }
 if (typeof window !== "undefined") {
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({
-    event: "generate_lead",
-    form_name: "contact_form",
-  });
+  (window as any).dataLayer = (window as any).dataLayer || [];
+(window as any).dataLayer.push({
+  event: "generate_lead",
+  form_name: "contact_form",
+});
 }
         reset();
         setSucceeded(true);
