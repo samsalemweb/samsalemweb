@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import AnimationProvider from "@/components/animations/AnimationProvider";
+import { GoogleTagManager } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.sam-salem.com"),
@@ -25,6 +26,7 @@ export default function RootLayout({
           <main className="min-h-screen">{children}</main>
         </AnimationProvider>
         <Footer />
+        <GoogleTagManager gtmId="GTM-TCP6QF2H" />
       </body>
     </html>
   );
