@@ -1,3 +1,4 @@
+'use client';
 import { ContactForm } from '@/components/contact/page';
 
 export default function ContactPage() {
@@ -66,7 +67,15 @@ export default function ContactPage() {
   href="https://calendly.com/samsalemhomes/60min"
   target="_blank"
   rel="noopener noreferrer"
- 
+ onClick={() => {
+  if (typeof window !== "undefined") {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "book_meeting",
+      booking_platform: "calendly",
+    });
+  }
+}}
   className="inline-block px-8 py-3 bg-accent text-white font-body font-semibold rounded-full hover:bg-accent-dark transition-all duration-300"
 >
   Book Now
