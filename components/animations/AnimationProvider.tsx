@@ -9,6 +9,10 @@ interface AnimationProviderProps {
 }
 
 export default function AnimationProvider({ children }: AnimationProviderProps) {
+const ENABLE_PAGE_TRANSITIONS = false;
+    if (!ENABLE_PAGE_TRANSITIONS) {
+  return <>{children}</>;
+}
     const pathname = usePathname();
 
     return (
