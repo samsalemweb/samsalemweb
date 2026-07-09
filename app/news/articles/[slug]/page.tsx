@@ -111,7 +111,26 @@ export default async function BlogPostPage({ params }: Props) {
                     </div>
                 </div>
             )}
+{/* Language Switcher */}
+<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+    <div className="flex justify-center mb-8">
+        <div className="inline-flex rounded-full border border-gray-200 bg-white shadow-sm overflow-hidden">
+            <Link
+                href={`/news/articles/${post.slug}`}
+                className="px-6 py-2.5 bg-accent text-white font-body font-semibold text-sm"
+            >
+                English
+            </Link>
 
+            <Link
+                href={`/fa/news/articles/${post.slug}-fa`}
+                className="px-6 py-2.5 bg-white text-foreground font-body font-semibold text-sm hover:bg-gray-50 transition-colors"
+            >
+                فارسی
+            </Link>
+        </div>
+    </div>
+</div>
             {/* Article Content */}
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
                 <article className="bg-white rounded-2xl border border-gray-100 p-8 md:p-12">
