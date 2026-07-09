@@ -10,6 +10,7 @@ import { Vazirmatn } from "next/font/google";
 
 const vazirmatn = Vazirmatn({
   subsets: ["arabic"],
+  variable: "--font-fa",
   display: "swap",
 });
 
@@ -59,8 +60,8 @@ export default async function BlogPostPage({ params }: Props) {
 
     return (
         <div
-    dir="rtl"
-    className={`${vazirmatn.className} min-h-screen bg-background`}
+  dir="rtl"
+  className={`${vazirmatn.variable} fa-page min-h-screen bg-background`}
 >
             {/* Hero Image */}
             {post.hero_image_url && (
