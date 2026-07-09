@@ -6,6 +6,7 @@ import { Vazirmatn } from "next/font/google";
 
 const vazirmatn = Vazirmatn({
   subsets: ["arabic"],
+  variable: "--font-fa",
   display: "swap",
 });
 
@@ -31,8 +32,8 @@ export default async function ArticlesPage() {
 
     return (
         <div
-    dir="rtl"
-    className={`${vazirmatn.className} min-h-screen bg-background text-right`}
+  dir="rtl"
+  className={`${vazirmatn.variable} fa-page min-h-screen bg-background`}
 >
             {/* Header */}
             <div className="bg-primary pt-28 pb-12">
