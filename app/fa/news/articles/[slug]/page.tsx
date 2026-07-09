@@ -6,6 +6,12 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Vazirmatn } from "next/font/google";
+
+const vazirmatn = Vazirmatn({
+  subsets: ["arabic"],
+  display: "swap",
+});
 
 export const revalidate = 60;
 
@@ -52,7 +58,10 @@ export default async function BlogPostPage({ params }: Props) {
         : '';
 
     return (
-        <div dir="rtl" className="min-h-screen bg-background">
+        <div
+    dir="rtl"
+    className={`${vazirmatn.className} min-h-screen bg-background`}
+>
             {/* Hero Image */}
             {post.hero_image_url && (
                 <div className="relative h-[40vh] md:h-[50vh]">
