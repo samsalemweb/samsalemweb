@@ -65,5 +65,12 @@ export interface BlogPost {
   created_at: string;
   updated_at: string;
   published_at: string | null;
+  blog_post_id?: string;
+
+  blog_posts?: {
+    id: string;
+    slug: string;
+    title: string;
+  };
 }
 
