@@ -69,3 +69,56 @@ export async function getAllBlogSlugs(): Promise<string[]> {
     return data.map((post) => post.slug);
 }
 
+// Fetching all Persian Blog posts
+export async function getAllPersianBlogPosts(): Promise<BlogPost[]> {
+    const { data, error } = await supabase
+        .from('blog_translations')
+        .select('title, slug, excerpt, hero_image_url, author, tags, published_at')
+        .eq('status', 'published')
+        .order('published_at', { ascending: false });
+
+    if (error) {
+        console.error('Error fetching Persian blog posts:', error);
+        return [];
+    }
+
+    return data as BlogPost[];
+}
+
+// Fetch single Persian blog post
+export async function getPersianBlogPostBySlug(slug: string) {
+    const { data, error } = await supabase
+        .from("blog_translations")
+        .select(`
+            *,
+            blog_posts:blog_translations_blog_post_id_fkey (
+                id,
+                slug,
+                title
+            )
+        `)
+        .eq("slug", slug)
+        .eq("status", "published")
+        .single();
+
+    if (error) {
+        console.error("Error fetching Persian blog post:", error);
+        return null;
+    }
+
+    return data;
+}
+
+// Fetching all Persian Slugs
+export async function getAllPersianBlogSlugs(): Promise<string[]> {
+    const { data, error } = await supabase
+        .from('blog_translations')
+        .select('slug')
+        .eq('status', 'published');
+
+    if (error) return [];
+
+    return data.map((post) => post.slug);
+}
+
+

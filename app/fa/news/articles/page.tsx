@@ -1,18 +1,25 @@
-import { getAllBlogPosts } from '@/lib/supabase';
+import { getAllPersianBlogPosts } from '@/lib/supabase';
 import { BlogPost } from '@/lib/types';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Vazirmatn } from "next/font/google";
+
+const vazirmatn = Vazirmatn({
+  subsets: ["arabic"],
+  variable: "--font-fa",
+  display: "swap",
+});
 
 export const revalidate = 60;
 
 export const metadata = {
-    title: 'Real Estate Articles and Market Insights | Sam Salem',
+    title: 'مقالات و تحلیل‌های بازار املاک | Sam Salem',
     description:
-        'Read the latest North Vancouver real estate market updates, buying tips, and neighbourhood guides from Sam Salem.',
+        'جدیدترین مقالات، راهنمای خرید خانه و تحلیل بازار املاک در North Vancouver و Greater Vancouver.',
 };
 
 export default async function ArticlesPage() {
-    const posts = await getAllBlogPosts();
+    const posts = await getAllPersianBlogPosts();
 
     const formatDate = (dateStr: string | null) => {
         if (!dateStr) return '';
@@ -24,50 +31,53 @@ export default async function ArticlesPage() {
     };
 
     return (
-        <div className="min-h-screen bg-background">
+        <div
+  dir="rtl"
+  className={`${vazirmatn.variable} fa-page min-h-screen bg-background`}
+>
             {/* Header */}
             <div className="bg-primary pt-28 pb-12">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-right">
                     <p className="text-accent font-body font-semibold text-sm tracking-[0.15em] uppercase mb-3">
-                        Stay Informed
+                        به روز بمانید
                     </p>
-                    <h1 className="text-3xl md:text-4xl font-heading font-semibold text-white">
-                        Articles &amp; market insights
+                    <h1 className="text-right text-3xl md:text-4xl font-heading font-semibold text-white">
+                        مقالات و تحلیل‌های بازار املاک
                     </h1>
-                    <p className="text-white/70 font-body mt-2 text-base">
-                        Market trends, buying tips, and neighbourhood guides for North Vancouver.
+                    <p className="text-white/70 font-body mt-2 text-base text-right">
+                        آخرین مقالات، راهنمای خرید خانه و تحلیل بازار املاک North Vancouver
                     </p>
                 </div>
             </div>
 <div className="flex justify-center py-8">
     <div className="inline-flex rounded-full border border-gray-200 bg-white shadow-sm overflow-hidden">
         <Link
-            href="/news/articles"
-            className="px-6 py-2.5 bg-accent text-white font-body font-semibold text-sm transition-colors"
-        >
-            English
-        </Link>
+    href="/fa/news/articles"
+    className="px-6 py-2.5 bg-accent text-white ..."
+>
+    فارسی
+</Link>
 
-        <Link
-            href="/fa/news/articles"
-            className="px-6 py-2.5 bg-white text-foreground font-body font-semibold text-sm hover:bg-gray-50 transition-colors"
-        >
-            فارسی
-        </Link>
+<Link
+    href="/news/articles"
+    className="px-6 py-2.5 bg-white text-foreground hover:bg-gray-50 ..."
+>
+    English
+</Link>
     </div>
 </div>
             {/* Blog Grid */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
                 {posts.length === 0 ? (
                     <p className="text-center text-muted font-body py-20">
-                        No articles published yet. Check back soon!
+                        هنوز مقاله‌ای منتشر نشده است.
                     </p>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {posts.map((post: BlogPost) => (
                             <Link
                                 key={post.slug}
-                                href={`/news/articles/${post.slug}`}
+                                href={`/fa/news/articles/${post.slug}`}
                                 className="group rounded-2xl overflow-hidden bg-white border border-gray-100 hover:shadow-xl hover:border-accent/20 transition-all duration-300"
                             >
                                 <div className="relative h-48 overflow-hidden">
@@ -102,7 +112,7 @@ export default async function ArticlesPage() {
                                             {formatDate(post.published_at)}
                                         </span>
                                         <span className="text-xs font-body font-semibold text-accent group-hover:underline">
-                                            Read more
+                                            ادامه مطلب
                                         </span>
                                     </div>
                                 </div>
