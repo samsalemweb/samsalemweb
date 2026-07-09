@@ -138,7 +138,7 @@ export default async function BlogPostPage({ params }: Props) {
         </Link>
 
         <Link
-            href={`/news/articles/${post.slug}`}
+            href={`/news/articles/${(post as any).blog_posts.slug}`}
             className="px-6 py-2.5 bg-white text-foreground font-body font-semibold text-sm hover:bg-gray-50 transition-colors"
         >
             English
