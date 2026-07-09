@@ -1,4 +1,4 @@
-import { getAllBlogPosts } from '@/lib/supabase';
+import { getAllPersianBlogPosts } from '@/lib/supabase';
 import { BlogPost } from '@/lib/types';
 import Link from 'next/link';
 import Image from 'next/image';
