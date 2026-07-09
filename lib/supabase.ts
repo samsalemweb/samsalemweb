@@ -113,3 +113,15 @@ export async function getAllPersianBlogSlugs(): Promise<string[]> {
 
     return data.map((post) => post.slug);
 }
+
+export async function getEnglishPostById(id: string) {
+    const { data, error } = await supabase
+        .from("blog_posts")
+        .select("slug")
+        .eq("id", id)
+        .single();
+
+    if (error) return null;
+
+    return data;
+}
