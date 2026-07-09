@@ -78,7 +78,7 @@ export default async function BlogPostPage({ params }: Props) {
                             {/* Tags */}
                             {post.tags.length > 0 && (
                                 <div className="flex gap-2 flex-wrap mb-3">
-                                    {post.tags.map((tag) => (
+                                    {post.tags.map((tag: string) => (
                                         <span
                                             key={tag}
                                             className="inline-block px-3 py-1 bg-accent text-white text-xs font-body font-medium rounded-full"
@@ -105,7 +105,7 @@ export default async function BlogPostPage({ params }: Props) {
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                         {post.tags.length > 0 && (
                             <div className="flex gap-2 flex-wrap mb-3">
-                                {post.tags.map((tag) => (
+                                {post.tags.map((tag: string) => (
                                     <span
                                         key={tag}
                                         className="inline-block px-3 py-1 bg-accent text-white text-xs font-body font-medium rounded-full"
