@@ -2,6 +2,12 @@ import { getAllPersianBlogPosts } from '@/lib/supabase';
 import { BlogPost } from '@/lib/types';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Vazirmatn } from "next/font/google";
+
+const vazirmatn = Vazirmatn({
+  subsets: ["arabic"],
+  display: "swap",
+});
 
 export const revalidate = 60;
 
@@ -24,7 +30,10 @@ export default async function ArticlesPage() {
     };
 
     return (
-        <div dir="rtl" className="min-h-screen bg-background text-right">
+        <div
+    dir="rtl"
+    className={`${vazirmatn.className} min-h-screen bg-background text-right`}
+>
             {/* Header */}
             <div className="bg-primary pt-28 pb-12">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-right">
