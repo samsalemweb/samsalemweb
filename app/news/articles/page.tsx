@@ -39,22 +39,22 @@ export default async function ArticlesPage() {
                     </p>
                 </div>
             </div>
-<div className="flex justify-end mb-8">
-  <div className="inline-flex rounded-full border border-gray-200 overflow-hidden">
-    <Link
-      href="/news/articles"
-      className="px-5 py-2 bg-primary text-white text-sm font-medium"
-    >
-      English
-    </Link>
+<div className="flex justify-center py-8">
+    <div className="inline-flex rounded-full border border-gray-200 bg-white shadow-sm overflow-hidden">
+        <Link
+            href="/news/articles"
+            className="px-6 py-2.5 bg-accent text-white font-body font-semibold text-sm transition-colors"
+        >
+            English
+        </Link>
 
-    <Link
-      href="/fa/news/articles"
-      className="px-5 py-2 bg-white text-gray-700 text-sm font-medium hover:bg-gray-50"
-    >
-      فارسی
-    </Link>
-  </div>
+        <Link
+            href="/fa/news/articles"
+            className="px-6 py-2.5 bg-white text-foreground font-body font-semibold text-sm hover:bg-gray-50 transition-colors"
+        >
+            فارسی
+        </Link>
+    </div>
 </div>
             {/* Blog Grid */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
