@@ -316,3 +316,8 @@ html {
   border-color: #C9A84C;
   box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.2);
 }
+
+.fa-page,
+.fa-page * {
+  font-family: var(--font-fa) !important;
+}
