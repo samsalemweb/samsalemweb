@@ -24,17 +24,17 @@ export default async function ArticlesPage() {
     };
 
     return (
-        <div className="min-h-screen bg-background">
+        <div dir="rtl" className="min-h-screen bg-background text-right">
             {/* Header */}
             <div className="bg-primary pt-28 pb-12">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-right">
                     <p className="text-accent font-body font-semibold text-sm tracking-[0.15em] uppercase mb-3">
                         به روز بمانید
                     </p>
-                    <h1 className="text-3xl md:text-4xl font-heading font-semibold text-white">
+                    <h1 className="text-right text-3xl md:text-4xl font-heading font-semibold text-white">
                         مقالات و تحلیل‌های بازار املاک
                     </h1>
-                    <p className="text-white/70 font-body mt-2 text-base">
+                    <p className="text-white/70 font-body mt-2 text-base text-right">
                         آخرین مقالات، راهنمای خرید خانه و تحلیل بازار املاک North Vancouver
                     </p>
                 </div>
@@ -42,18 +42,18 @@ export default async function ArticlesPage() {
 <div className="flex justify-center py-8">
     <div className="inline-flex rounded-full border border-gray-200 bg-white shadow-sm overflow-hidden">
         <Link
-            href="/news/articles"
-            className="px-6 py-2.5 bg-accent text-white font-body font-semibold text-sm transition-colors"
-        >
-            English
-        </Link>
+    href="/fa/news/articles"
+    className="px-6 py-2.5 bg-accent text-white ..."
+>
+    فارسی
+</Link>
 
-        <Link
-            href="/fa/news/articles"
-            className="px-6 py-2.5 bg-white text-foreground font-body font-semibold text-sm hover:bg-gray-50 transition-colors"
-        >
-            فارسی
-        </Link>
+<Link
+    href="/news/articles"
+    className="px-6 py-2.5 bg-white text-foreground hover:bg-gray-50 ..."
+>
+    English
+</Link>
     </div>
 </div>
             {/* Blog Grid */}
