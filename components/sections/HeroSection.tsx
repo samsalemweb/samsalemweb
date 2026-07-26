@@ -7,7 +7,7 @@ import Image from 'next/image';
 import ScrollReveal from '@/components/animations/ScrollReveal';
 
 const ctaButtons = [
-    { label: "SAM'S LISTINGS", href: '/buy/samslisting' },
+    { label: 'CALL NOW', href: 'tel:+16044452030' },
     { label: 'MLS SEARCH', href: '/listing/mls-search' },
     { label: 'PRESALE', href: '/presale' },
 ];
