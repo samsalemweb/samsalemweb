@@ -203,7 +203,7 @@ export default function HeroSection() {
                                 >
                                     <Link
                                         href={ctaButtons[0].href}
-                                        className="border border-[#C9A84C] text-[#C9A84C] bg-transparent hover:bg-[#C9A84C] hover:text-black transition-all duration-300 font-cinzel tracking-widest text-[10px] h-12 px-4 whitespace-nowrap inline-flex items-center justify-center rounded-full w-full"
+                                        className="border border-[#C9A84C] text-white bg-transparent hover:bg-[#C9A84C] hover:text-black transition-all duration-300 font-cinzel tracking-widest text-[10px] h-12 px-4 whitespace-nowrap inline-flex items-center justify-center rounded-full w-full"
                                         style={{ boxShadow: '0 0 12px rgba(201,168,76,0.3)' }}
                                     >
                                         {ctaButtons[0].label}
@@ -217,7 +217,7 @@ export default function HeroSection() {
                                 >
                                     <Link
                                         href={ctaButtons[1].href}
-                                        className="border border-[#C9A84C] text-[#C9A84C] bg-transparent hover:bg-[#C9A84C] hover:text-black transition-all duration-300 font-cinzel tracking-widest text-[10px] h-12 px-4 whitespace-nowrap inline-flex items-center justify-center rounded-full w-full"
+                                        className="border border-[#C9A84C] text-white bg-transparent hover:bg-[#C9A84C] hover:text-black transition-all duration-300 font-cinzel tracking-widest text-[10px] h-12 px-4 whitespace-nowrap inline-flex items-center justify-center rounded-full w-full"
                                         style={{ boxShadow: '0 0 12px rgba(201,168,76,0.3)' }}
                                     >
                                         {ctaButtons[1].label}
@@ -232,7 +232,7 @@ export default function HeroSection() {
                             >
                                 <Link
                                     href={ctaButtons[2].href}
-                                    className="border border-[#C9A84C] text-[#C9A84C] bg-transparent hover:bg-[#C9A84C] hover:text-black transition-all duration-300 font-cinzel tracking-widest text-[10px] h-12 px-4 whitespace-nowrap inline-flex items-center justify-center rounded-full w-full"
+                                    className="border border-[#C9A84C] text-white bg-transparent hover:bg-[#C9A84C] hover:text-black transition-all duration-300 font-cinzel tracking-widest text-[10px] h-12 px-4 whitespace-nowrap inline-flex items-center justify-center rounded-full w-full"
                                     style={{ boxShadow: '0 0 12px rgba(201,168,76,0.3)' }}
                                 >
                                     {ctaButtons[2].label}
