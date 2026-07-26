@@ -20,7 +20,7 @@ export default function HeroSection() {
             ref={sectionRef}
             className="relative min-h-screen -mt-20 flex items-center overflow-hidden"
         >
-            {/* Video background */}
+            {/* Desktop Video background */}
             <div className="absolute inset-0 w-full h-full overflow-hidden">
                 <iframe
                     src="https://player.vimeo.com/video/1181646062?background=1&autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0"
@@ -31,7 +31,16 @@ export default function HeroSection() {
                     allowFullScreen
                 />
             </div>
-
+{/* Mobile Background */}
+<div className="md:hidden absolute inset-0">
+    <Image
+        src="/hero-mobile.webp"
+        alt="Greater Vancouver Real Estate"
+        fill
+        priority
+        className="object-cover"
+    />
+</div>
             {/* Dark overlay */}
             <div className="absolute inset-0 bg-black/55" />
 
