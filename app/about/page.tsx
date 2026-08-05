@@ -76,7 +76,9 @@ const processSteps = [
         description: 'Even after closing, we\'re here to assist with your next steps. Your satisfaction is our long-term priority.',
     },
 ];
-
+export const metadata = {
+  title: "About",
+};
 export default function AboutPage() {
     return (
         <div className="min-h-screen bg-background overflow-hidden">
