@@ -1,6 +1,30 @@
 import { supabase } from './supabase';
 import type { OfficeListing, OfficeListingImage, OfficeListingWithImages } from '@/types/office-listing';
 
+// Listings removed from the site per client request (2026-08-21). Rows still
+// exist in Supabase (anon key cannot delete); titles here are hidden everywhere.
+const REMOVED_TITLES = new Set<string>([
+    'Vancouver West DunbarCommunity House For Sale',
+    'Burnaby South Highgate Luma 2 Bedroom 2 Bathroom Condo For Sale',
+    'Amazing OceanView House in West Vancouver For Sale',
+    'Vancouver East 2 Bedroom 1 Bathroom Condo For Sale',
+    'Vancouver East 1 Bedroom 1 Bathroom Condo For Sale',
+    'West Vancouver Oceanview Homes in Chartwell For Sale',
+    'Yaletown Luxury Townhouse For Sale',
+    'Burnaby Sullivan Heights Well-Maintained Mountain View Condo For Sale',
+    'West Bay Spacious Ocean-View House For Sale',
+    'Vancouver West Luxury with Upgrade Air Conditioning 2 Rooms 2 Bathrooms',
+    'North Temperate Deluxe 3 Room 1 Den 2 Bathroom Rare For Sale',
+    'The Private Residences at Hotel Georgia',
+    'Langley Well-Maintained House For Sale',
+    'North Vancouver Upper Delbrook Oceanview House for Sale',
+    'West Vancouver Gorgeous Waterfront House',
+    'Harbour Green 2 Coal Harbour Luxury Apartment',
+    'Spectacular Sunny and Bright House For Sale (Cypress Park Estate)',
+    'Quiet Community Warm Family 4 Bedroom 3 Bath House',
+    'Prestige Neighborhood British Properties Spacious Ocean View House for Sale',
+]);
+
 // ---- helpers ----
 
 function resolveImageUrl(img: OfficeListingImage): string {
@@ -75,7 +99,7 @@ export async function getAllOfficeListings(): Promise<OfficeListingWithImages[]>
     const rawListings = (listingsRes.data || []) as Record<string, unknown>[];
     const rawImages = (imagesRes.data || []) as Record<string, unknown>[];
 
-    const listings = rawListings.map(mapRawListing);
+    const listings = rawListings.map(mapRawListing).filter((l) => !REMOVED_TITLES.has(l.title));
     const images = rawImages.map(mapRawImage);
 
     // Group images by listing title
@@ -135,6 +159,10 @@ export async function getOfficeListingBySlug(slug: string): Promise<OfficeListin
     const images = rawImgRows.map(mapRawImage);
 
     const listingTitle = images.length > 0 ? images[0].listing_title : null;
+
+    if (listingTitle && REMOVED_TITLES.has(listingTitle)) {
+        return null;
+    }
 
     // If no images matched, try to find by derived slug
     if (!listingTitle) {
