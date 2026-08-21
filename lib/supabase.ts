@@ -1,8 +1,17 @@
 import { createClient } from '@supabase/supabase-js';
 import { BlogPost } from './types';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+// Fall back to placeholders when env vars are missing (e.g. local dev without
+// .env.local) so pages render instead of crashing; queries then fail and the
+// functions below return empty data.
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-anon-key';
+
+if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    console.warn(
+        'Supabase env vars missing: blog content will not load. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local'
+    );
+}
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
