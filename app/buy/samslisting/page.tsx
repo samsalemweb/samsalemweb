@@ -1,7 +1,3 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { getAllMyListings } from '@/lib/my-listings';
-
 export const revalidate = 3600;
 
 export const metadata = {
@@ -10,20 +6,7 @@ export const metadata = {
         "Browse Sam Salem's active MLS listings in Greater Vancouver. Luxury condos, townhomes, and detached homes.",
 };
 
-export default async function SamSalemsListingPage() {
-    const listings = await getAllMyListings();
-
-    const isEmptyPrice = (price: string) =>
-        !price || price === '—' || price.trim() === '';
-
-    const statsRow = (listing: { beds: string; baths: string; sq_ft: string }) => {
-        const parts: string[] = [];
-        if (listing.beds?.trim()) parts.push(`${listing.beds} Beds`);
-        if (listing.baths?.trim()) parts.push(`${listing.baths} Baths`);
-        if (listing.sq_ft?.trim()) parts.push(`${listing.sq_ft} Sq Ft`);
-        return parts;
-    };
-
+export default function SamSalemsListingPage() {
     return (
         <div className="min-h-screen bg-background">
             {/* Hero Section */}
@@ -37,119 +20,62 @@ export default async function SamSalemsListingPage() {
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-cinzel font-medium text-white mb-6 tracking-tight">
                         Sam Salem&apos;s Greater Vancouver Real Estate Listings
                     </h1>
-                    <p className="max-w-3xl mx-auto mt-6 text-white/80 font-body text-lg">
-  Browse Sam Salem&apos;s featured real estate listings across Greater Vancouver,
-  including Vancouver, Burnaby, Coquitlam, North Vancouver, West Vancouver,
-  Richmond, Surrey, and surrounding communities. Explore condos, townhomes,
-  detached homes, and investment properties currently available on the market.
-</p>
                     <div className="w-24 h-[2px] mx-auto" style={{ backgroundColor: '#C9A84C' }} />
                 </div>
             </div>
 
-            {/* Listing Grid */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
-                {listings.length === 0 ? (
-                    <div className="text-center py-20">
-                        <p className="text-muted font-body text-lg">No active listings at this time.</p>
+            {/* Maintenance Notice */}
+            <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+                <div className="rounded-2xl border border-border bg-white text-center px-6 py-14 md:px-12 md:py-16 shadow-[0_0_20px_rgba(201,168,76,0.1)]">
+                    <div
+                        className="w-14 h-14 mx-auto mb-6 rounded-full flex items-center justify-center"
+                        style={{ backgroundColor: 'rgba(201, 168, 76, 0.12)' }}
+                    >
+                        <svg
+                            className="w-7 h-7"
+                            style={{ color: '#C9A84C' }}
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={1.5}
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085"
+                            />
+                        </svg>
                     </div>
-                ) : (
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        {listings.map((listing) => (
-                            <Link
-                                key={listing.slug}
-                                href={`/buy/samslisting/${listing.slug}`}
-                                className="group block"
-                            >
-                                <div
-                                    className="rounded-2xl overflow-hidden border border-border bg-white transition-all duration-500 h-full flex flex-col hover:border-accent/30 hover:shadow-[0_0_20px_rgba(201,168,76,0.15)]"
-                                >
-                                    {/* Cover Image */}
-                                    <div className="relative overflow-hidden" style={{ aspectRatio: '4/3' }}>
-                                        {listing.cover_image ? (
-                                            <Image
-                                                src={listing.cover_image}
-                                                alt={listing.title}
-                                                fill
-                                                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                                                sizes="(max-width: 1024px) 100vw, 50vw"
-                                            />
-                                        ) : (
-                                            <div
-                                                className="w-full h-full flex items-center justify-center bg-gray-100"
-                                            >
-                                                <span className="text-muted text-sm font-body">No image</span>
-                                            </div>
-                                        )}
-                                    </div>
 
-                                    {/* Content */}
-                                    <div className="p-6 flex flex-col flex-1">
-                                        {/* Building name */}
-                                        {listing.building?.trim() && (
-                                            <span
-                                                className="text-[11px] font-semibold tracking-[0.2em] uppercase mb-1 font-body"
-                                                style={{ color: '#C9A84C' }}
-                                            >
-                                                {listing.building}
-                                            </span>
-                                        )}
+                    <h2 className="text-2xl md:text-3xl font-cinzel font-medium text-foreground mb-4">
+                        This Page Is Under Maintenance
+                    </h2>
 
-                                        {/* Title */}
-                                        <h3 className="text-xl font-cinzel font-medium text-foreground mb-2 group-hover:text-accent transition-colors duration-300 line-clamp-2">
-                                            {listing.title}
-                                        </h3>
+                    <p className="text-muted font-body text-lg leading-relaxed mb-8 max-w-xl mx-auto">
+                        We are currently updating our listings to serve you better.
+                        In the meantime, please reach out by email for all inquiries,
+                        and Sam will be happy to assist you personally.
+                    </p>
 
-                                        {/* Price */}
-                                        {isEmptyPrice(listing.price) ? (
-                                            <p className="text-lg font-cinzel font-medium italic mb-3" style={{ color: '#C9A84C' }}>
-                                                Pricing On Request
-                                            </p>
-                                        ) : (
-                                            <p className="text-lg font-cinzel font-semibold mb-3" style={{ color: '#C9A84C' }}>
-                                                {listing.price}
-                                            </p>
-                                        )}
+                    <a
+                        href="mailto:salemhomes@yahoo.com"
+                        className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-sm font-semibold font-body text-white transition-all duration-300 hover:opacity-90 hover:gap-4"
+                        style={{ backgroundColor: '#C9A84C' }}
+                    >
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
+                            />
+                        </svg>
+                        salemhomes@yahoo.com
+                    </a>
 
-                                        {/* Stats Row */}
-                                        {statsRow(listing).length > 0 && (
-                                            <p className="text-sm text-muted font-body mb-4">
-                                                {statsRow(listing).join(' · ')}
-                                            </p>
-                                        )}
-
-                                        {/* Badges */}
-                                        <div className="flex flex-wrap gap-2 mb-5">
-                                            {listing.property_type?.trim() && (
-                                                <span className="px-3 py-1 rounded-full text-[11px] font-medium tracking-wide border border-border text-muted font-body">
-                                                    {listing.property_type}
-                                                </span>
-                                            )}
-                                            {listing.city?.trim() && (
-                                                <span className="px-3 py-1 rounded-full text-[11px] font-medium tracking-wide border border-border text-muted font-body">
-                                                    {listing.city}
-                                                </span>
-                                            )}
-                                        </div>
-
-                                        {/* View Details */}
-                                        <div className="mt-auto pt-4 border-t border-border">
-                                            <span
-                                                className="inline-flex items-center gap-2 text-sm font-semibold font-body group-hover:gap-3 transition-all duration-300"
-                                                style={{ color: '#C9A84C' }}
-                                            >
-                                                View Details
-                                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                                                </svg>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
-                )}
+                    <p className="text-sm text-muted font-body mt-8">
+                        Thank you for your patience. We will be back soon.
+                    </p>
+                </div>
             </div>
         </div>
     );
