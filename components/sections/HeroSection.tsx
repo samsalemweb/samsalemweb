@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import ScrollReveal from '@/components/animations/ScrollReveal';
@@ -14,23 +14,42 @@ const ctaButtons = [
 
 export default function HeroSection() {
     const sectionRef = useRef<HTMLElement>(null);
+    const [isDesktop, setIsDesktop] = useState(false);
 
+    useEffect(() => {
+        const mediaQuery = window.matchMedia('(min-width: 768px)');
+
+        const updateViewport = () => {
+            setIsDesktop(mediaQuery.matches);
+        };
+
+        updateViewport();
+
+        mediaQuery.addEventListener('change', updateViewport);
+
+        return () => {
+            mediaQuery.removeEventListener('change', updateViewport);
+        };
+    }, []);
+    
     return (
         <section
             ref={sectionRef}
             className="relative min-h-screen -mt-20 flex items-center overflow-hidden"
         >
-            {/* Desktop Video background */}
-            <div className="absolute inset-0 w-full h-full overflow-hidden">
-                <iframe
-                    src="https://player.vimeo.com/video/1181646062?background=1&autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0"
-                    className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2"
-                    style={{ aspectRatio: '16/9' }}
-                    frameBorder="0"
-                    allow="autoplay; fullscreen"
-                    allowFullScreen
-                />
-            </div>
+           {/* Desktop Video background — only rendered on desktop */}
+{isDesktop && (
+    <div className="absolute inset-0 w-full h-full overflow-hidden">
+        <iframe
+            src="https://player.vimeo.com/video/1181646062?background=1&autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0"
+            className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2"
+            style={{ aspectRatio: '16/9' }}
+            frameBorder="0"
+            allow="autoplay; fullscreen"
+            allowFullScreen
+        />
+    </div>
+)}
 {/* Mobile Background */}
 <div className="md:hidden absolute inset-0">
     <Image
