@@ -5,7 +5,15 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import AnimationProvider from "@/components/animations/AnimationProvider";
 
+export const metadata = {
+  // your existing metadata...
 
+  verification: {
+    other: {
+      "msvalidate.01": "1326D23461E90CC150FFFD4FE92C2C89",
+    },
+  },
+};
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.sam-salem.com"),
   title: "Sam Salem | PREC | Sincere Real Estate Services",
