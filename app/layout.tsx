@@ -27,7 +27,15 @@ export default function RootLayout({
           <main className="min-h-screen">{children}</main>
         </AnimationProvider>
         <Footer />
-       
+        {process.env.NEXT_PUBLIC_GHL_CHAT_WIDGET_ID && (
+          <Script
+            id="ghl-chat-widget"
+            src="https://widgets.leadconnectorhq.com/loader.js"
+            data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
+            data-widget-id={process.env.NEXT_PUBLIC_GHL_CHAT_WIDGET_ID}
+            strategy="afterInteractive"
+          />
+        )}
       </body>
       <Script
     id="gtm-head"
